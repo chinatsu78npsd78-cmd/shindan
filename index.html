@@ -28,6 +28,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .card{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
 .hand{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400}
 .bear{display:block;margin:0 auto}
+.bear-img{max-width:70%;height:auto;mix-blend-mode:multiply;animation:floaty 3.6s ease-in-out infinite}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .bear .balloon{animation:floaty 3.2s ease-in-out infinite;transform-origin:center}
 .wrap{max-width:520px;margin:0 auto;padding:16px 16px 48px}
@@ -201,6 +202,10 @@ const TYPES = {
    くまのイラスト（風船の色はタイプごとに変わる）
    ========================================================= */
 const BALLOON = {kirikae:"#a8d8c0", ukkari:"#f6cf5f", bakuhatsu:"#f19aa7", switch:"#c7b6e8", asa:"#9fc8ea", other:"#f6b9a0"};
+// 絵本風のくま（ChatGPTで生成した画像。img/タイプ名.jpg）
+function bearImg(type, w){
+  return `<img class="bear bear-img" src="img/${type}.jpg" width="${w}" height="${w}" alt="風船を持ったくま">`;
+}
 let bearN = 0;
 function bearSVG(balloon="#f6cf5f", w=150, mark=""){
   // 絵本風：手描きのゆらぎ線＋クレヨンのざらざら
@@ -402,8 +407,10 @@ $("btnNext").onclick = ()=>{
   else finish();
 };
 $("footer").textContent = `© ${SETTINGS.NAME}｜${SETTINGS.PROFILE}`;
-$("heroBear").innerHTML = bearSVG("#f6cf5f", 150);
-$("loadBear").innerHTML = bearSVG("#f19aa7", 120);
+$("heroBear").innerHTML = bearImg("ukkari", 220);
+$("loadBear").innerHTML = bearImg("kirikae", 170);
+// 結果画面のくまを先に読みこんでおく
+Object.keys(TYPES).forEach(t=>{ const i=new Image(); i.src=`img/${t}.jpg`; });
 
 /* =========================================================
    判定
@@ -465,7 +472,7 @@ function renderResult(type, code, grade){
   <div class="card">
     <div class="center"><span class="badge">${grade.label}のお子さんのタイプ</span></div>
     <div class="result-type" style="margin-top:12px">
-      ${bearSVG(BALLOON[type], 130, T.icon)}
+      ${bearImg(type, 190)}
       <div class="name">${T.name}</div>
       <div class="catch">${T.catch}</div>
     </div>
