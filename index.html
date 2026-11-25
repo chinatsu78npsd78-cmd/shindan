@@ -542,7 +542,23 @@ function renderResult(type, code, grade){
     ? "ここまで、本当によくがんばってきましたね。くたくたになるのは、それだけ毎日お子さんと向き合ってきたから。あなたが悪いのではありません。まずは、そのがんばりを自分で認めてあげてくださいね。"
     : "お子さんのことを知ろうとして、ここまで答えてくれたこと。それ自体が、もう大きな愛情です。うまくいかない日があっても大丈夫。お子さんのことと同じくらい、あなた自身のことも、大切にしてあげてくださいね。";
   if (S.momChecks.includes(MOM_CHECKS[3])) momMsg += "<br><br>凸凹は、育て方のせいで生まれるものではありません。";
-  const lineText = `診断コード：${code}\n${T.name}の声かけカードをください`;
+  // LINEに送ってもらう文（なつこさんがトークで回答内容を見られるように、答えも入れる）
+  const topText = S.top==="other" ? "その他" : ((ITEMS.find(x=>x.id===S.top)||{}).text || "");
+  const lineText = [
+    "【うちの子の困ったタイプ診断】",
+    `診断コード：${code}`,
+    `タイプ：${T.name}`,
+    `生年月日：${S.birth}（${grade.label}）`,
+    S.gender ? `性別：${S.gender}` : "",
+    `困っていること：${S.items.map(id=>ITEMS.find(x=>x.id===id).text).join("／") || "なし"}`,
+    S.other ? `その他：${S.other}` : "",
+    `いちばん困っていること：${topText}（困り度 ${S.strength}/5）`,
+    `お母さんの疲れ度：${S.fatigue}/5`,
+    S.momChecks.length ? `お母さんのこと：${S.momChecks.join("／")}` : "",
+    `個別相談：${S.consult}`,
+    "",
+    "読み解きをお願いします🌸"
+  ].filter((l,i,a)=>l!=="" || i===a.length-2).join("\n");
   const canSend = !!SETTINGS.LINE_BASIC_ID;
   const sendUrl = canSend ? `https://line.me/R/oaMessage/${encodeURIComponent(SETTINGS.LINE_BASIC_ID)}/?${encodeURIComponent(lineText)}` : "";
 
@@ -562,13 +578,14 @@ function renderResult(type, code, grade){
       <p style="margin:8px 0 0">お子さんに合う関わり方は、同じタイプでも一人ひとり少しずつちがいます。アプリの画面では文章でお伝えしきれないので、くわしい内容は公式LINEでお送りしています。</p>
     </div>
 
-    <p style="margin:4px 0 10px">下の<strong>診断コード</strong>をコピーして公式LINEに送っていただくと、その子の気質・特性・タイプに合わせて、より詳しくお送りしますね。</p>
+    <p style="margin:4px 0 10px">下の<strong>診断コード</strong>をコピーして公式LINEに送っていただくと、その子の気質・特性・タイプに合わせて、なつこが読み解いて、より詳しくお送りしますね。</p>
     <ol class="line-steps">
       <li><span class="num">1</span><strong>診断コードをコピーする</strong>
         <p class="small" style="margin:6px 0">あなたの診断コード：<span class="code">${code}</span></p>
         ${canSend
           ? `<a class="btn btn-main" href="${sendUrl}" target="_blank" rel="noopener">LINEにコードを送る</a>`
           : `<button class="btn btn-main" id="btnCopy">コードをコピーする</button>`}
+        <p class="small" style="margin-top:6px">お子さんの生年月日や、選んでくださった困りごとも一緒にコピーされます。読み解きに使わせていただきますね。</p>
       </li>
       <li><span class="num">2</span><strong>公式LINEに送る</strong>
         <a class="btn btn-line" style="margin-top:8px" href="${SETTINGS.LINE_ADD_URL}" target="_blank" rel="noopener">公式LINEをひらく</a>
