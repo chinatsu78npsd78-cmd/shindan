@@ -16,13 +16,12 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%;min-height:100vh}
+:root{--tint:#fff8e2; --tint2:#fdeebf}
+body{background:var(--tint);color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%;min-height:100vh;transition:background-color .6s}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
-    radial-gradient(60% 40% at 0% 0%, rgba(244,167,179,.22), transparent 70%),
-    radial-gradient(55% 40% at 100% 8%, rgba(248,220,133,.25), transparent 70%),
-    radial-gradient(60% 40% at 100% 100%, rgba(186,220,200,.25), transparent 70%),
-    radial-gradient(60% 40% at 0% 95%, rgba(205,190,235,.22), transparent 70%)}
+    radial-gradient(80% 45% at 50% 0%, var(--tint2), transparent 75%),
+    radial-gradient(70% 40% at 50% 100%, var(--tint2), transparent 75%)}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55  0 0 0 0 .45  0 0 0 0 .35  0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
 .card{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
@@ -69,7 +68,7 @@ input[type=date]:focus,textarea:focus{outline:none;border-color:var(--main)}
 .nav .btn-ghost{width:auto;flex:none}
 .err{color:#d0588c;font-size:14px;min-height:1.5em;margin-top:6px}
 .small{font-size:12.5px;color:var(--sub);line-height:1.7}
-.result-type{background:var(--lav-lt);border-radius:20px;padding:16px 16px 20px;text-align:center;margin-bottom:14px}
+.result-type{background:var(--tint);border-radius:20px;padding:16px 16px 20px;text-align:center;margin-bottom:14px}
 .result-type .name{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400;font-size:24px;color:var(--main-dk);margin:2px 0 4px}
 .result-type .catch{font-size:15px;color:var(--sub)}
 .box{background:var(--lav-lt);border-radius:16px;padding:14px;margin:10px 0}
@@ -203,6 +202,16 @@ const TYPES = {
    ========================================================= */
 const BALLOON = {kirikae:"#a8d8c0", ukkari:"#f6cf5f", bakuhatsu:"#f19aa7", switch:"#c7b6e8", asa:"#9fc8ea", other:"#f6b9a0"};
 // 絵本風のくま（ChatGPTで生成した画像。img/タイプ名.jpg）
+// 背景は風船の色をうすくしたもの [うすい色, 少しこい色]
+const TINT = {
+  kirikae:["#eef8f0","#dcf0e0"], ukkari:["#fff8e2","#fdeebf"], bakuhatsu:["#fdeeee","#f9dcdc"],
+  switch:["#f4f0fb","#e6def6"], asa:["#eef5fc","#dbe9f8"], other:["#fdf1ea","#f9e0d2"]
+};
+function setTint(type){
+  const [a,b] = TINT[type] || TINT.ukkari;
+  document.documentElement.style.setProperty("--tint", a);
+  document.documentElement.style.setProperty("--tint2", b);
+}
 function bearImg(type, w){
   return `<img class="bear bear-img" src="img/${type}.jpg" width="${w}" height="${w}" alt="風船を持ったくま">`;
 }
@@ -459,6 +468,7 @@ async function finish(){
    ========================================================= */
 function renderResult(type, code, grade){
   const T = TYPES[type];
+  setTint(type);
   const tired = +S.fatigue>=4 || S.momChecks.length>=2;
   let momMsg = tired
     ? "ここまで、本当によくがんばってきましたね。くたくたになるのは、それだけ毎日お子さんと向き合ってきたから。あなたが悪いのではありません。まずは、そのがんばりを自分で認めてあげてくださいね。"
