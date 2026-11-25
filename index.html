@@ -11,7 +11,7 @@
 <style>
 :root{
   --bg:#fdf8f0; --card:#fffdf9; --ink:#5b4636; --sub:#8c7a6b; --line:#f0e4d4;
-  --main:#ec8d9c; --main-dk:#d86f80; --pink:#f4a7b3; --pink-lt:#fdecee; --lav-lt:#fbf1e6;
+  --main:#ec8d9c; --main-dk:#d86f80; --pink:#f4a7b3; --pink-lt:#fdecee; --lav-lt:var(--tint);
   --yellow:#f8dc85; --green:#06c755; --bear:#a3734f;
 }
 *{box-sizing:border-box}
@@ -32,7 +32,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .bear .balloon{animation:floaty 3.2s ease-in-out infinite;transform-origin:center}
 .wrap{max-width:520px;margin:0 auto;padding:16px 16px 48px}
 .card{background:var(--card);border-radius:22px;padding:22px 18px;box-shadow:0 4px 18px rgba(163,115,79,.08);margin-bottom:16px;border:1px solid var(--line)}
-h1{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400;font-size:27px;line-height:1.55;margin:6px 0 12px;text-align:center;color:var(--main-dk)}
+h1{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:27px;line-height:1.55;margin:6px 0 12px;text-align:center;color:var(--main-dk)}
 h1 .em{color:var(--main-dk)}
 h2{font-size:19px;line-height:1.5;margin:0 0 6px;font-weight:900}
 p{margin:0 0 10px}
@@ -69,7 +69,7 @@ input[type=date]:focus,textarea:focus{outline:none;border-color:var(--main)}
 .err{color:#d0588c;font-size:14px;min-height:1.5em;margin-top:6px}
 .small{font-size:12.5px;color:var(--sub);line-height:1.7}
 .result-type{background:var(--tint);border-radius:20px;padding:16px 16px 20px;text-align:center;margin-bottom:14px}
-.result-type .name{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400;font-size:24px;color:var(--main-dk);margin:2px 0 4px}
+.result-type .name{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:24px;color:var(--main-dk);margin:2px 0 4px}
 .result-type .catch{font-size:15px;color:var(--sub)}
 .box{background:var(--lav-lt);border-radius:16px;padding:14px;margin:10px 0}
 .box.pink{background:var(--pink-lt)}
@@ -121,7 +121,7 @@ footer{text-align:center;font-size:12px;color:var(--sub);margin-top:20px}
   <section id="loading" class="hidden">
     <div class="card center">
       <div id="loadBear"></div>
-      <h2 class="hand" style="color:var(--main-dk)">タイプを読み解いています…</h2>
+      <h2 style="color:var(--main-dk)">タイプを読み解いています…</h2>
       <p class="small">少しだけお待ちください</p>
     </div>
   </section>
