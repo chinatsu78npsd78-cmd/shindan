@@ -17,9 +17,11 @@
 *{box-sizing:border-box}
 html,body{margin:0}
 :root{--tint:#fff8e2; --tint2:#fdeebf}
-.deco{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-.deco .bl{position:absolute;opacity:.55;animation:floaty 4s ease-in-out infinite}
-body{background:#fffefb;color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%;min-height:100vh}
+.deco{position:absolute;left:0;right:0;height:170px;z-index:-1;pointer-events:none;overflow:hidden}
+.deco svg{width:100%;height:100%;display:block}
+.deco-top{top:0}
+.deco-bottom{bottom:0}
+body{position:relative;background:#fffefb;color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%;min-height:100vh}
 /* ふちから淡い色がにじむ背景（ピンク・黄色・ミント・ラベンダー） */
 body::before{content:none;position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
@@ -36,10 +38,10 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .bear-img{max-width:70%;height:auto;mix-blend-mode:multiply;animation:floaty 3.6s ease-in-out infinite}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .bear .balloon{animation:floaty 3.2s ease-in-out infinite;transform-origin:center}
-.wrap{max-width:520px;margin:0 auto;padding:16px 16px 48px}
+.wrap{max-width:520px;margin:0 auto;padding:70px 16px 150px}
 .card{background:transparent;border-radius:22px;padding:18px 4px;margin-bottom:12px}
-h1{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:27px;line-height:1.55;margin:6px 0 12px;text-align:center;color:var(--main-dk)}
-h1 .em{color:var(--main-dk)}
+h1{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:27px;line-height:1.55;margin:6px 0 12px;text-align:center;color:#5a3a2e;letter-spacing:.04em}
+h1 .em{color:#5a3a2e}
 h2{font-size:19px;line-height:1.5;margin:0 0 6px;font-weight:900}
 p{margin:0 0 10px}
 .lead{text-align:center;color:var(--sub);font-size:15px}
@@ -92,7 +94,44 @@ footer{text-align:center;font-size:12px;color:var(--sub);margin-top:20px}
 </style>
 </head>
 <body>
-<div class="deco" id="deco" aria-hidden="true"></div>
+<div class="deco deco-top" aria-hidden="true">
+  <svg viewBox="0 0 375 170" preserveAspectRatio="xMidYMin slice">
+    <defs>
+      <filter id="wc" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="3" seed="7" result="t"/>
+        <feDisplacementMap in="SourceGraphic" in2="t" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="2" result="n"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -.9 .55" result="spots"/>
+        <feComposite in="spots" in2="d" operator="in" result="s2"/>
+        <feMerge><feMergeNode in="d"/><feMergeNode in="s2"/></feMerge>
+      </filter>
+      <pattern id="stripe" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
+        <rect width="9" height="4" fill="#f6d77e"/>
+      </pattern>
+    </defs>
+    <g filter="url(#wc)" opacity=".85">
+      <circle cx="18" cy="30" r="62" fill="#f9d79a"/>
+      <circle cx="122" cy="8" r="56" fill="#f7bccb"/>
+      <circle cx="238" cy="2" r="64" fill="#9fd6d2"/>
+      <circle cx="350" cy="62" r="46" fill="#b9dcb8"/>
+      <ellipse cx="95" cy="116" rx="11" ry="6" fill="#f7bccb" transform="rotate(25 95 116)"/>
+      <ellipse cx="300" cy="128" rx="8" ry="5" fill="#9fd6d2" transform="rotate(-20 300 128)"/>
+    </g>
+    <rect x="300" y="0" width="80" height="60" fill="url(#stripe)" opacity=".7"/>
+  </svg>
+</div>
+<div class="deco deco-bottom" aria-hidden="true">
+  <svg viewBox="0 0 375 170" preserveAspectRatio="xMidYMax slice">
+    <g filter="url(#wc)" opacity=".85">
+      <circle cx="40" cy="175" r="78" fill="#b9dcb8"/>
+      <circle cx="205" cy="190" r="70" fill="#f9d79a"/>
+      <circle cx="350" cy="160" r="58" fill="#f6c6c4"/>
+      <ellipse cx="190" cy="78" rx="12" ry="6" fill="#f9d79a" transform="rotate(-25 190 78)"/>
+      <ellipse cx="18" cy="60" rx="9" ry="5" fill="#b9dcb8" transform="rotate(30 18 60)"/>
+      <ellipse cx="362" cy="52" rx="8" ry="5" fill="#f7bccb" transform="rotate(-30 362 52)"/>
+    </g>
+  </svg>
+</div>
 <div class="wrap">
 
   <!-- ===== スタート ===== -->
@@ -436,6 +475,7 @@ $("footer").textContent = `© ${SETTINGS.NAME}｜${SETTINGS.PROFILE}`;
     ["#f6b6c4","right",86, 42,   6, 1.5],
     ["#fadc8f","left", 90, 48, -12, .3]
   ];
+  return; // ふちの風船はやめて、上下の水彩の枠にした
   $("deco").innerHTML = list.map(([c,side,top,w,rot,delay])=>`
     <svg class="bl" style="${side}:-${Math.round(w*.25)}px;top:${top}%;width:${w}px;animation-delay:${delay}s;transform:rotate(${rot}deg)" viewBox="0 0 40 80">
       <path d="M20 47 C16 58, 24 66, 19 80" fill="none" stroke="#c9b8a6" stroke-width="1"/>
