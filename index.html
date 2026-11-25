@@ -17,21 +17,25 @@
 *{box-sizing:border-box}
 html,body{margin:0}
 :root{--tint:#fff8e2; --tint2:#fdeebf}
-body{background:var(--tint);color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%;min-height:100vh;transition:background-color .6s}
+body{background:#fefbf5;color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%;min-height:100vh}
+/* ふちから淡い色がにじむ背景（ピンク・黄色・ミント・ラベンダー） */
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
-    radial-gradient(80% 45% at 50% 0%, var(--tint2), transparent 75%),
-    radial-gradient(70% 40% at 50% 100%, var(--tint2), transparent 75%)}
+    radial-gradient(70% 45% at 0% 0%, rgba(246,182,196,.55), transparent 70%),
+    radial-gradient(70% 40% at 100% 0%, rgba(250,222,150,.55), transparent 70%),
+    radial-gradient(60% 45% at 100% 55%, rgba(190,226,200,.5), transparent 70%),
+    radial-gradient(70% 45% at 0% 100%, rgba(214,198,240,.55), transparent 70%),
+    radial-gradient(60% 40% at 100% 100%, rgba(246,190,200,.45), transparent 70%)}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55  0 0 0 0 .45  0 0 0 0 .35  0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
-.card{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
+.card-x{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
 .hand{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400}
 .bear{display:block;margin:0 auto}
 .bear-img{max-width:70%;height:auto;mix-blend-mode:multiply;animation:floaty 3.6s ease-in-out infinite}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .bear .balloon{animation:floaty 3.2s ease-in-out infinite;transform-origin:center}
 .wrap{max-width:520px;margin:0 auto;padding:16px 16px 48px}
-.card{background:var(--card);border-radius:22px;padding:22px 18px;box-shadow:0 4px 18px rgba(163,115,79,.08);margin-bottom:16px;border:1px solid var(--line)}
+.card{background:transparent;border-radius:22px;padding:18px 4px;margin-bottom:12px}
 h1{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:27px;line-height:1.55;margin:6px 0 12px;text-align:center;color:var(--main-dk)}
 h1 .em{color:var(--main-dk)}
 h2{font-size:19px;line-height:1.5;margin:0 0 6px;font-weight:900}
