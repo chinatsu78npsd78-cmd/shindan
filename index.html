@@ -186,7 +186,7 @@ const SETTINGS = {
   // Googleスプレッドシートの受け口（Apps Script の「ウェブアプリURL」）。空なら保存しない
   SHEET_URL: "",
   // ① 友だち追加のリンク（UTAGEで作ったADHD専用の登録リンク。今はプロフィールと同じもの）
-  LINE_ADD_URL: "https://lin.ee/xS0uC3N",
+  LINE_ADD_URL: "https://utage-system.com/line/open/BqxLRpFGPyoa?mtid=9oB92qZXlOSz", // UTAGE「子供ADHD 登録時」の登録経路「困ったタイプ診断アプリ」
   // ② 公式LINEのベーシックID（@から始まるID）。入れると「結果をLINEに送る」ボタンが使える
   LINE_BASIC_ID: "",
   // 表示名
@@ -558,24 +558,26 @@ function renderResult(type, code, grade){
     <div class="box"><h3>${grade.label}のいま</h3><p style="margin:0">${AGE_NOTE[grade.stage]}</p></div>
 
     <div class="locked">
-      <h3 style="margin:0">🎁 続きはLINEでお届けします</h3>
-      <p class="small" style="margin:4px 0 0">「${T.name}」専用</p>
+      <h3 style="margin:0">🎈 お子さんのタイプを、もう少しくわしく</h3>
+      <p style="margin:8px 0 0">お子さんに合う関わり方は、同じタイプでも一人ひとり少しずつちがいます。アプリの画面では文章でお伝えしきれないので、くわしい内容は公式LINEでお送りしています。</p>
+      <p class="small" style="margin:10px 0 0">「${T.name}」のお子さんへ、たとえばこんなことをお届けします</p>
       <ul>${T.teaser.map(t=>`<li>${t}</li>`).join("")}</ul>
-      <div class="blur">「〇〇しようか」ではなく「〇〇と〇〇、どっちからにする？」…</div>
-      <p class="small" style="margin-top:8px">今日から使える<strong>声かけ3つカード</strong>（スマホ保存OK）をお送りします。</p>
+      <p class="small" style="margin-top:8px">今日から使える<strong>声かけ3つカード</strong>（スマホに保存できます）もお付けしますね。</p>
     </div>
 
+    <p style="margin:4px 0 10px">下の<strong>診断コード</strong>をコピーして公式LINEに送っていただくと、あなたのお子さんのパターンに合わせて、より詳しくお送りすることができます。</p>
     <ol class="line-steps">
-      <li><span class="num">1</span><strong>LINEで友だち追加</strong>
-        <a class="btn btn-line" style="margin-top:8px" href="${SETTINGS.LINE_ADD_URL}" target="_blank" rel="noopener">LINEで友だち追加する</a></li>
-      <li><span class="num">2</span><strong>診断コードを送る</strong>
+      <li><span class="num">1</span><strong>診断コードをコピーする</strong>
         <p class="small" style="margin:6px 0">あなたの診断コード：<span class="code">${code}</span></p>
         ${canSend
-          ? `<a class="btn btn-main" href="${sendUrl}" target="_blank" rel="noopener">LINEにコードを送ってカードを受け取る</a>`
-          : `<button class="btn btn-main" id="btnCopy">コードをコピーする</button>
-             <p class="small" style="margin-top:6px">友だち追加したあと、トークにコードを貼りつけて送ってください。</p>`}
+          ? `<a class="btn btn-main" href="${sendUrl}" target="_blank" rel="noopener">LINEにコードを送る</a>`
+          : `<button class="btn btn-main" id="btnCopy">コードをコピーする</button>`}
       </li>
+      <li><span class="num">2</span><strong>公式LINEに送る</strong>
+        <a class="btn btn-line" style="margin-top:8px" href="${SETTINGS.LINE_ADD_URL}" target="_blank" rel="noopener">公式LINEをひらく</a>
+        <p class="small" style="margin-top:6px">友だち追加をしたら、トークにコードを貼りつけて送ってくださいね。</p></li>
     </ol>
+    <p class="small center" style="margin-top:4px">もちろん、ここまでの結果だけでも大丈夫です。必要だと感じたときに、いつでもどうぞ。</p>
   </div>
 
   <div class="card">
