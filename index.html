@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>うちの子の困ったタイプ診断</title>
+<meta name="description" content="1分でわかる、うちの子の「困った」タイプ。年齢と困りごとから、今日から使えるヒントをお届けします。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf6ff; --card:#ffffff; --ink:#4a3b5c; --sub:#7d6c90; --line:#e8dcf5;
+  --main:#a77fd6; --main-dk:#8a5fc0; --pink:#f29bbf; --pink-lt:#fde7f0; --lav-lt:#f1e8fb;
+  --yellow:#ffe9a8; --green:#06c755;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%}
+.wrap{max-width:520px;margin:0 auto;padding:16px 16px 48px}
+.card{background:var(--card);border-radius:22px;padding:22px 18px;box-shadow:0 6px 24px rgba(167,127,214,.12);margin-bottom:16px}
+h1{font-size:26px;line-height:1.4;margin:6px 0 10px;font-weight:900;text-align:center}
+h1 .em{color:var(--pink)}
+h2{font-size:19px;line-height:1.5;margin:0 0 6px;font-weight:900}
+p{margin:0 0 10px}
+.lead{text-align:center;color:var(--sub);font-size:15px}
+.badge{display:inline-block;background:var(--pink-lt);color:#d0588c;border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700}
+.center{text-align:center}
+.hero-ill{font-size:56px;text-align:center;margin:4px 0}
+.points{list-style:none;padding:0;margin:14px 0 0}
+.points li{background:var(--lav-lt);border-radius:14px;padding:10px 12px;margin-bottom:8px;font-size:15px}
+.btn{display:block;width:100%;border:0;border-radius:999px;padding:15px 18px;font:inherit;font-weight:900;font-size:17px;cursor:pointer;text-align:center;text-decoration:none;transition:transform .08s, opacity .2s}
+.btn:active{transform:scale(.98)}
+.btn-main{background:linear-gradient(90deg,var(--main),var(--pink));color:#fff;box-shadow:0 6px 16px rgba(242,155,191,.35)}
+.btn-line{background:var(--green);color:#fff}
+.btn-ghost{background:transparent;color:var(--sub);font-size:14px;font-weight:700;padding:10px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:2px 0 6px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--main),var(--pink));width:0;transition:width .3s}
+.step-label{font-size:13px;color:var(--sub);text-align:right;margin-bottom:10px}
+.q-help{font-size:14px;color:var(--sub);margin-bottom:12px}
+label.opt{display:flex;align-items:center;gap:10px;border:2px solid var(--line);border-radius:14px;padding:11px 12px;margin-bottom:8px;cursor:pointer;font-size:15px;background:#fff;transition:border-color .15s, background .15s}
+label.opt input{accent-color:var(--main);width:20px;height:20px;flex:none}
+label.opt:has(input:checked){border-color:var(--main);background:var(--lav-lt)}
+.group-title{font-size:13px;font-weight:700;color:var(--main-dk);margin:14px 0 6px}
+input[type=date],textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+textarea{min-height:84px;resize:vertical}
+input[type=date]:focus,textarea:focus{outline:none;border-color:var(--main)}
+.scale{display:flex;gap:8px;margin:6px 0 4px}
+.scale label{flex:1;text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px 0;cursor:pointer;font-weight:900;font-size:18px;background:#fff}
+.scale input{position:absolute;opacity:0;pointer-events:none}
+.scale label:has(input:checked){background:linear-gradient(135deg,var(--main),var(--pink));color:#fff;border-color:transparent}
+.scale-cap{display:flex;justify-content:space-between;font-size:12px;color:var(--sub)}
+.nav{display:flex;gap:10px;margin-top:16px}
+.nav .btn-ghost{width:auto;flex:none}
+.err{color:#d0588c;font-size:14px;min-height:1.5em;margin-top:6px}
+.small{font-size:12.5px;color:var(--sub);line-height:1.7}
+.result-type{background:linear-gradient(135deg,var(--lav-lt),var(--pink-lt));border-radius:20px;padding:20px 16px;text-align:center;margin-bottom:14px}
+.result-type .icon{font-size:52px;line-height:1.2}
+.result-type .name{font-size:24px;font-weight:900;margin:4px 0}
+.result-type .catch{font-size:15px;color:var(--sub)}
+.box{background:var(--lav-lt);border-radius:16px;padding:14px;margin:10px 0}
+.box.pink{background:var(--pink-lt)}
+.box h3{margin:0 0 4px;font-size:15px;font-weight:900}
+.locked{position:relative;border:2px dashed var(--main);border-radius:16px;padding:14px;margin:14px 0;background:#fff}
+.locked ul{margin:6px 0 0;padding-left:1.2em}
+.locked .blur{filter:blur(4px);user-select:none;color:var(--sub);margin-top:8px}
+.code{display:inline-block;font-size:22px;letter-spacing:.15em;font-weight:900;background:var(--yellow);padding:2px 12px;border-radius:10px}
+.line-steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.line-steps li{margin-bottom:12px}
+.line-steps .num{display:inline-block;background:var(--main);color:#fff;border-radius:99px;width:24px;height:24px;text-align:center;line-height:24px;font-size:13px;margin-right:6px}
+.hidden{display:none !important}
+footer{text-align:center;font-size:12px;color:var(--sub);margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== スタート ===== -->
+  <section id="start">
+    <div class="card">
+      <div class="center"><span class="badge">無料・約1分</span></div>
+      <div class="hero-ill">🧸💭</div>
+      <h1>うちの子の<br><span class="em">「困った」タイプ</span>診断</h1>
+      <p class="lead">年齢と困りごとから、<br>お子さんのタイプと、今日から使えるヒントがわかります。</p>
+      <ul class="points">
+        <li>💜 毎日の「なんで？」の、理由のヒントが見つかる</li>
+        <li>💬 タイプ別「今日から使える声かけ3つ」カードをLINEでお届け</li>
+        <li>🌸 がんばっているお母さんへのメッセージつき</li>
+      </ul>
+    </div>
+    <button class="btn btn-main" id="btnStart">診断をはじめる</button>
+    <p class="small center" style="margin-top:12px">※ この診断は医療的な診断ではありません。<br>お子さんの「困りごとのタイプ」を知って、関わり方のヒントにするためのものです。</p>
+  </section>
+
+  <!-- ===== 質問 ===== -->
+  <section id="quiz" class="hidden">
+    <div class="progress"><i id="bar"></i></div>
+    <div class="step-label" id="stepLabel"></div>
+    <div class="card" id="qCard"></div>
+    <div class="err" id="err"></div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="btnBack">← もどる</button>
+      <button class="btn btn-main" id="btnNext">つぎへ</button>
+    </div>
+  </section>
+
+  <!-- ===== 送信中 ===== -->
+  <section id="loading" class="hidden">
+    <div class="card center">
+      <div class="hero-ill">🧸</div>
+      <h2>タイプを読み解いています…</h2>
+      <p class="small">少しだけお待ちください</p>
+    </div>
+  </section>
+
+  <!-- ===== 結果 ===== -->
+  <section id="result" class="hidden"></section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+/* =========================================================
+   ★ 設定（ここだけ書きかえればOK）
+   ========================================================= */
+const SETTINGS = {
+  // Googleスプレッドシートの受け口（Apps Script の「ウェブアプリURL」）。空なら保存しない
+  SHEET_URL: "",
+  // ① 友だち追加のリンク（UTAGEで作ったADHD専用の登録リンク。今はプロフィールと同じもの）
+  LINE_ADD_URL: "https://lin.ee/xS0uC3N",
+  // ② 公式LINEのベーシックID（@から始まるID）。入れると「結果をLINEに送る」ボタンが使える
+  LINE_BASIC_ID: "",
+  // 表示名
+  NAME: "なつこ",
+  PROFILE: "800gで生まれた凸凹の娘を育てる母"
+};
+
+/* =========================================================
+   困りごと（選択肢）とタイプの対応
+   ========================================================= */
+const ITEMS = [
+  {id:"k1", type:"kirikae",   text:"ゲームや動画をやめられない"},
+  {id:"k2", type:"kirikae",   text:"次のことに切り替えられない"},
+  {id:"k3", type:"kirikae",   text:"予定が変わると大きく崩れる"},
+  {id:"u1", type:"ukkari",    text:"忘れ物・なくし物が多い"},
+  {id:"u2", type:"ukkari",    text:"話を最後まで聞けていない"},
+  {id:"u3", type:"ukkari",    text:"宿題や提出物を出し忘れる"},
+  {id:"b1", type:"bakuhatsu", text:"かんしゃく・すぐ怒る"},
+  {id:"b2", type:"bakuhatsu", text:"外ではいい子なのに家で大荒れする"},
+  {id:"b3", type:"bakuhatsu", text:"負けたり失敗すると大泣き・大怒り"},
+  {id:"s1", type:"switch",    text:"宿題になかなか取りかかれない"},
+  {id:"s2", type:"switch",    text:"「やって」と言うとやる気をなくす"},
+  {id:"s3", type:"switch",    text:"興味のないことが続かない"},
+  {id:"a1", type:"asa",       text:"朝の支度が進まない"},
+  {id:"a2", type:"asa",       text:"朝なかなか起きられない"},
+  {id:"a3", type:"asa",       text:"学校に行きたがらない日がある"}
+];
+const GROUPS = [
+  {title:"切り替え", ids:["k1","k2","k3"]},
+  {title:"うっかり", ids:["u1","u2","u3"]},
+  {title:"気持ち",   ids:["b1","b2","b3"]},
+  {title:"やる気",   ids:["s1","s2","s3"]},
+  {title:"朝・登校", ids:["a1","a2","a3"]}
+];
+
+const TYPES = {
+  kirikae:{icon:"🎮", name:"切り替えゆっくりタイプ", catch:"好きなことに、ぐっと入り込める子",
+    feature:"好きなことに入り込む集中力がとても強いタイプです。「やめなさい」が届かないのは、言うことを聞かないからではなく、夢中モードから戻るのに、少し時間がかかるのかもしれません。ブレーキが、ちょっとゆっくりなだけなんです。",
+    teaser:["「あと5分」より伝わりやすい予告のしかた","切り替えの前に入れるとラクになるひとこと","やってしまいがちな、逆効果の声かけ"]},
+  ukkari:{icon:"🎈", name:"うっかり冒険家タイプ", catch:"頭の中に、アイデアがいっぱいの子",
+    feature:"頭の中にいろいろなことが次々と浮かぶタイプです。目の前の「おもしろい」に気持ちが引っぱられやすく、覚えておくことが後回しになりがち。だらしないのではなく、心が「おもしろい」でいっぱいになりやすいのかもしれません。",
+    teaser:["忘れ物が減る「見える化」のひと工夫","話を聞いてもらえる伝え方のコツ","責めずに思い出させるひとこと"]},
+  bakuhatsu:{icon:"🌋", name:"気持ちあふれタイプ", catch:"感じる力が、人一倍強い子",
+    feature:"うれしいも、くやしいも、人一倍強く感じるタイプです。外でがんばって気持ちを抑えている分、安心できるおうちで気持ちがあふれ出します。家で荒れるのは、おうちが安心できる場所だから、ということも多いんです。",
+    teaser:["爆発しているときに、かけていいひとこと","落ち着いたあとの「仲直り」の声かけ","その場をしずめようとして逆効果になること"]},
+  switch:{icon:"🔌", name:"スイッチさがしタイプ", catch:"自分で決めたときに、ぐんと伸びる子",
+    feature:"やる気がないのではなく、やる気のスイッチの場所が人とちがうタイプです。「やりなさい」と言われた瞬間に気持ちが下がるのは、自分で決めたい気持ちが強いからかもしれません。スイッチの場所がわかると、驚くほど動けることがあります。",
+    teaser:["指示しないのに動き出す声かけ","取りかかりが早くなる「最初の一歩」の作り方","言いがちだけど、やる気を下げてしまう言葉"]},
+  asa:{icon:"🌙", name:"朝ゆっくりタイプ", catch:"エンジンがかかるまで、少し時間がいる子",
+    feature:"朝は、体と頭のエンジンがかかるまでに時間がかかるタイプです。支度が進まないのは、ふざけているからではありません。行きたがらない日があるなら、それは心と体からの大事なサインかもしれません。朝の頭痛・腹痛やだるさが続くときは、小児科にも相談してみてくださいね。",
+    teaser:["朝の「早くして！」を減らす前の晩の準備","起きられる朝の声かけ","行きたくない日に、まずかけたいひとこと"]},
+  other:{icon:"🌷", name:"オーダーメイドタイプ", catch:"その子だけの「困った」を、いっしょに見ていきます",
+    feature:"書いてくれた困りごとは、5つのタイプにぴったり当てはまらない、その子ならではのものかもしれません。だからこそ、型に当てはめずに見ていきたいと思っています。書いてくれた内容に合わせて、LINEで個別にヒントをお届けしますね。",
+    teaser:["書いてくれた困りごとに合わせたヒント","今日から試せる、小さな声かけ","お母さんの心が少し軽くなるひとこと"]}
+};
+
+const MOM_CHECKS = [
+  "叱ったあとに、自己嫌悪になる",
+  "ひとりで抱えている感じがする",
+  "まわりにわかってもらえない",
+  "自分の育て方のせいかも、と思う",
+  "ゆっくり休めていない"
+];
+const CONSULT = ["はい、相談してみたい","いつか相談したいかも","今はだいじょうぶ"];
+
+/* =========================================================
+   状態
+   ========================================================= */
+const S = {birth:"", gender:"", items:[], other:"", top:"", strength:"", fatigue:"", momChecks:[], consult:"", agree:false};
+
+/* =========================================================
+   年齢・学年
+   ========================================================= */
+function calcAge(birth){
+  const b = new Date(birth+"T00:00:00"), t = new Date();
+  let age = t.getFullYear()-b.getFullYear();
+  if (t.getMonth()<b.getMonth() || (t.getMonth()===b.getMonth() && t.getDate()<b.getDate())) age--;
+  return age;
+}
+function calcGrade(birth){
+  // 日本の学年：4月2日〜翌4月1日生まれが同じ学年
+  const b = new Date(birth+"T00:00:00"), t = new Date();
+  const schoolYear = (t.getMonth()>=3) ? t.getFullYear() : t.getFullYear()-1; // 4月始まり
+  let by = b.getFullYear();
+  if (b.getMonth()<3 || (b.getMonth()===3 && b.getDate()===1)) by -= 1; // 1/1〜4/1生まれは前年度扱い
+  const g = schoolYear - by - 6; // 小1 = 1
+  if (g<=0) return {label:"未就学", stage:"pre"};
+  if (g<=6) return {label:"小"+g, stage: g<=2?"e12": g<=4?"e34":"e56"};
+  if (g<=9) return {label:"中"+(g-6), stage:"jh"};
+  return {label:"高校生以上", stage:"jh"};
+}
+const AGE_NOTE = {
+  pre:"まだ自分の気持ちを言葉にするのが難しい時期です。困った行動は「言葉のかわり」のことが多いので、行動の奥にある気持ちを、代わりに言葉にしてあげるだけでも落ち着きやすくなります。",
+  e12:"学校のルールに合わせるだけで、毎日たくさんのエネルギーを使っている時期です。家で崩れるのは、外でがんばった分、おうちで安心できているから、ということも多いんです。",
+  e34:"勉強がむずかしくなり、まわりとの比べっこも始まる時期です。「どうせ自分なんて」が出てきたら、できたことを一緒に数えてあげてくださいね。",
+  e56:"「自分で決めたい」気持ちがぐんと強くなる時期です。指示よりも「どうする？」と聞くほうが、動きやすくなることが多いです。",
+  jh:"思春期と重なって、親の言葉が届きにくく感じる時期です。話を聞く時間を、解決しなくていい時間にしてみてください。"
+};
+
+/* =========================================================
+   質問のステップ
+   ========================================================= */
+const STEPS = [
+  { // 1 生年月日・性別
+    render(){
+      return `<h2>お子さんの生年月日を教えてください</h2>
+      <p class="q-help">年齢に合わせたヒントをお届けするために使います。</p>
+      <input type="date" id="birth" value="${S.birth}" max="${new Date().toISOString().slice(0,10)}">
+      <div class="group-title">性別（任意）</div>
+      ${["男の子","女の子","答えない"].map(g=>`<label class="opt"><input type="radio" name="gender" value="${g}" ${S.gender===g?"checked":""}>${g}</label>`).join("")}`;
+    },
+    save(){
+      S.birth = document.getElementById("birth").value;
+      const g = document.querySelector('input[name=gender]:checked'); S.gender = g?g.value:"";
+      if(!S.birth) return "生年月日を入れてください";
+      const a = calcAge(S.birth); if (a<0||a>20) return "生年月日をもう一度確認してください";
+    }
+  },
+  { // 2 困りごと
+    render(){
+      return `<h2>最近、困っていることはどれですか？</h2>
+      <p class="q-help">あてはまるものを、いくつでも選んでください。</p>
+      ${GROUPS.map(g=>`<div class="group-title">${g.title}</div>`+g.ids.map(id=>{
+        const it = ITEMS.find(x=>x.id===id);
+        return `<label class="opt"><input type="checkbox" name="items" value="${id}" ${S.items.includes(id)?"checked":""}>${it.text}</label>`;
+      }).join("")).join("")}
+      <div class="group-title">その他（自由に書いてください）</div>
+      <textarea id="other" maxlength="300" placeholder="例）友だちとのトラブルが多い、など">${esc(S.other)}</textarea>`;
+    },
+    save(){
+      S.items = [...document.querySelectorAll('input[name=items]:checked')].map(x=>x.value);
+      S.other = document.getElementById("other").value.trim();
+      if(!S.items.length && !S.other) return "ひとつ以上選ぶか、その他に書いてください";
+    }
+  },
+  { // 3 いちばん困っていること＋強さ
+    render(){
+      const list = S.items.map(id=>ITEMS.find(x=>x.id===id));
+      if (S.other) list.push({id:"other", text:"その他：" + S.other.slice(0,30) + (S.other.length>30?"…":"")});
+      if (list.length===1) S.top = list[0].id;
+      return `<h2>この中で、いちばん困っているのは？</h2>
+      ${list.map(it=>`<label class="opt"><input type="radio" name="top" value="${it.id}" ${S.top===it.id?"checked":""}>${esc(it.text)}</label>`).join("")}
+      <div class="group-title" style="margin-top:18px">どのくらい困っていますか？</div>
+      <div class="scale">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="strength" value="${n}" ${S.strength==n?"checked":""}>${n}</label>`).join("")}</div>
+      <div class="scale-cap"><span>少し</span><span>とても</span></div>`;
+    },
+    save(){
+      const t = document.querySelector('input[name=top]:checked'); S.top = t?t.value:"";
+      const s = document.querySelector('input[name=strength]:checked'); S.strength = s?s.value:"";
+      if(!S.top) return "いちばん困っていることを選んでください";
+      if(!S.strength) return "困っている度合いを選んでください";
+    }
+  },
+  { // 4 お母さんのこと
+    render(){
+      return `<h2>お母さん自身のことも、少しだけ聞かせてください</h2>
+      <p class="q-help">毎日がんばっているあなたにも、メッセージをお届けします。</p>
+      <div class="group-title">いまの疲れ度は？</div>
+      <div class="scale">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="fatigue" value="${n}" ${S.fatigue==n?"checked":""}>${n}</label>`).join("")}</div>
+      <div class="scale-cap"><span>元気</span><span>くたくた</span></div>
+      <div class="group-title" style="margin-top:16px">あてはまるもの（いくつでも）</div>
+      ${MOM_CHECKS.map((m,i)=>`<label class="opt"><input type="checkbox" name="mom" value="${i}" ${S.momChecks.includes(m)?"checked":""}>${m}</label>`).join("")}`;
+    },
+    save(){
+      const f = document.querySelector('input[name=fatigue]:checked'); S.fatigue = f?f.value:"";
+      S.momChecks = [...document.querySelectorAll('input[name=mom]:checked')].map(x=>MOM_CHECKS[+x.value]);
+      if(!S.fatigue) return "疲れ度を選んでください";
+    }
+  },
+  { // 5 相談・同意
+    render(){
+      return `<h2>最後の質問です</h2>
+      <div class="group-title">お子さんのことを、個別に相談してみたいですか？</div>
+      ${CONSULT.map(c=>`<label class="opt"><input type="radio" name="consult" value="${c}" ${S.consult===c?"checked":""}>${c}</label>`).join("")}
+      <label class="opt" style="margin-top:16px"><input type="checkbox" id="agree" ${S.agree?"checked":""}><span class="small" style="color:var(--ink)">回答内容を、診断結果のお届けと、個別相談などのご案内をLINEでお送りするために使うことに同意します（第三者には渡しません）</span></label>`;
+    },
+    save(){
+      const c = document.querySelector('input[name=consult]:checked'); S.consult = c?c.value:"";
+      S.agree = document.getElementById("agree").checked;
+      if(!S.consult) return "ひとつ選んでください";
+      if(!S.agree) return "同意のチェックをお願いします";
+    }
+  }
+];
+
+/* =========================================================
+   画面の動き
+   ========================================================= */
+let cur = 0;
+const $ = id => document.getElementById(id);
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function show(id){["start","quiz","loading","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id)); window.scrollTo(0,0);}
+function renderStep(){
+  $("qCard").innerHTML = STEPS[cur].render();
+  $("bar").style.width = ((cur)/STEPS.length*100)+"%";
+  $("stepLabel").textContent = `${cur+1} / ${STEPS.length}`;
+  $("btnBack").style.visibility = cur===0?"hidden":"visible";
+  $("btnNext").textContent = cur===STEPS.length-1 ? "結果を見る" : "つぎへ";
+  $("err").textContent = "";
+}
+$("btnStart").onclick = ()=>{cur=0; show("quiz"); renderStep();};
+$("btnBack").onclick = ()=>{STEPS[cur].save(); if(cur>0){cur--; renderStep(); window.scrollTo(0,0);}};
+$("btnNext").onclick = ()=>{
+  const e = STEPS[cur].save();
+  if (e){ $("err").textContent = e; return; }
+  if (cur<STEPS.length-1){ cur++; renderStep(); window.scrollTo(0,0); }
+  else finish();
+};
+$("footer").textContent = `© ${SETTINGS.NAME}｜${SETTINGS.PROFILE}`;
+
+/* =========================================================
+   判定
+   ========================================================= */
+function judge(){
+  const score = {kirikae:0, ukkari:0, bakuhatsu:0, switch:0, asa:0};
+  S.items.forEach(id=>{ score[ITEMS.find(x=>x.id===id).type] += 1; });
+  const topItem = ITEMS.find(x=>x.id===S.top);
+  if (topItem) score[topItem.type] += 2;               // いちばん困っていることは重みを大きく
+  let best = Object.keys(score).sort((a,b)=>score[b]-score[a])[0];
+  if (score[best]===0) best = "other";                  // 「その他」だけのときは専用の結果
+  return {type:best, score};
+}
+function makeCode(){
+  const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s="";
+  const r = crypto.getRandomValues(new Uint8Array(6)); r.forEach(n=>s+=c[n%c.length]); return s;
+}
+
+async function finish(){
+  show("loading");
+  const {type, score} = judge();
+  const code = makeCode();
+  const age = calcAge(S.birth), grade = calcGrade(S.birth);
+  const topText = S.top==="other" ? "その他："+S.other : (ITEMS.find(x=>x.id===S.top)||{}).text;
+  const payload = {
+    code, type: TYPES[type].name, birth:S.birth, age, grade:grade.label, gender:S.gender,
+    items: S.items.map(id=>ITEMS.find(x=>x.id===id).text).join(" / "),
+    other:S.other, top:topText, strength:S.strength,
+    fatigue:S.fatigue, momChecks:S.momChecks.join(" / "), consult:S.consult,
+    score: Object.entries(score).map(([k,v])=>`${TYPES[k].name.replace("タイプ","")}:${v}`).join(" "),
+    ua: navigator.userAgent.slice(0,120)
+  };
+  const wait = new Promise(r=>setTimeout(r,1400));
+  if (SETTINGS.SHEET_URL){
+    try{
+      await fetch(SETTINGS.SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+    }catch(e){ /* 保存に失敗しても結果は表示する */ }
+  }
+  await wait;
+  renderResult(type, code, grade);
+  show("result");
+}
+
+/* =========================================================
+   結果画面
+   ========================================================= */
+function renderResult(type, code, grade){
+  const T = TYPES[type];
+  const tired = +S.fatigue>=4 || S.momChecks.length>=2;
+  let momMsg = tired
+    ? "ここまで、本当によくがんばってきましたね。くたくたになるのは、それだけ毎日お子さんと向き合ってきたから。あなたが悪いのではありません。まずは、そのがんばりを自分で認めてあげてくださいね。"
+    : "お子さんのことを知ろうとして、ここまで答えてくれたこと。それ自体が、もう大きな愛情です。うまくいかない日があっても大丈夫。お子さんのことと同じくらい、あなた自身のことも、大切にしてあげてくださいね。";
+  if (S.momChecks.includes(MOM_CHECKS[3])) momMsg += "<br><br>凸凹は、育て方のせいで生まれるものではありません。";
+  const lineText = `診断コード：${code}\n${T.name}の声かけカードをください`;
+  const canSend = !!SETTINGS.LINE_BASIC_ID;
+  const sendUrl = canSend ? `https://line.me/R/oaMessage/${encodeURIComponent(SETTINGS.LINE_BASIC_ID)}/?${encodeURIComponent(lineText)}` : "";
+
+  $("result").innerHTML = `
+  <div class="card">
+    <div class="center"><span class="badge">${grade.label}のお子さんのタイプ</span></div>
+    <div class="result-type" style="margin-top:12px">
+      <div class="icon">${T.icon}</div>
+      <div class="name">${T.name}</div>
+      <div class="catch">${T.catch}</div>
+    </div>
+    <div class="box"><h3>このタイプの特徴</h3><p style="margin:0">${T.feature}</p></div>
+    <div class="box"><h3>${grade.label}のいま</h3><p style="margin:0">${AGE_NOTE[grade.stage]}</p></div>
+
+    <div class="locked">
+      <h3 style="margin:0">🎁 続きはLINEでお届けします</h3>
+      <p class="small" style="margin:4px 0 0">「${T.name}」専用</p>
+      <ul>${T.teaser.map(t=>`<li>${t}</li>`).join("")}</ul>
+      <div class="blur">「〇〇しようか」ではなく「〇〇と〇〇、どっちからにする？」…</div>
+      <p class="small" style="margin-top:8px">今日から使える<strong>声かけ3つカード</strong>（スマホ保存OK）をお送りします。</p>
+    </div>
+
+    <ol class="line-steps">
+      <li><span class="num">1</span><strong>LINEで友だち追加</strong>
+        <a class="btn btn-line" style="margin-top:8px" href="${SETTINGS.LINE_ADD_URL}" target="_blank" rel="noopener">LINEで友だち追加する</a></li>
+      <li><span class="num">2</span><strong>診断コードを送る</strong>
+        <p class="small" style="margin:6px 0">あなたの診断コード：<span class="code">${code}</span></p>
+        ${canSend
+          ? `<a class="btn btn-main" href="${sendUrl}" target="_blank" rel="noopener">LINEにコードを送ってカードを受け取る</a>`
+          : `<button class="btn btn-main" id="btnCopy">コードをコピーする</button>
+             <p class="small" style="margin-top:6px">友だち追加したあと、トークにコードを貼りつけて送ってください。</p>`}
+      </li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <div class="box pink" style="margin:0">
+      <h3>🌸 お母さんへ</h3>
+      <p style="margin:0">${momMsg}</p>
+    </div>
+    ${S.consult===CONSULT[0] ? `<p class="small" style="margin-top:12px">「相談してみたい」を選んでくださってありがとうございます。LINEで、個別相談のご案内もお送りしますね。</p>` : ""}
+  </div>
+
+  <p class="small center">※ この診断は医療的な診断ではありません。気になることが続くときは、学校や地域の相談窓口、専門機関にも相談してくださいね。</p>
+  <button class="btn btn-ghost" onclick="location.reload()">もう一度診断する</button>`;
+
+  const cp = document.getElementById("btnCopy");
+  if (cp) cp.onclick = async ()=>{
+    try{ await navigator.clipboard.writeText(lineText); cp.textContent="コピーしました ✓"; }
+    catch(e){ cp.textContent = "コード：" + code; }
+  };
+}
+</script>
+</body>
+</html>
