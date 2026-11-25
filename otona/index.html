@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>大人の困ったタイプ診断</title>
+<meta name="description" content="1分でわかる、大人の「困った」タイプ。毎日の困りごとから、あなたに合うヒントをお届けします。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf8f0; --card:#fffdf9; --ink:#5b4636; --sub:#8c7a6b; --line:#f0e4d4;
+  --main:#ec8d9c; --main-dk:#d86f80; --pink:#f4a7b3; --pink-lt:#fdecee; --lav-lt:var(--tint);
+  --yellow:#f8dc85; --green:#06c755; --bear:#a3734f;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+:root{--tint:#fff8e2; --tint2:#fdeebf}
+.deco{position:absolute;left:0;right:0;height:170px;z-index:-1;pointer-events:none;overflow:hidden}
+.deco svg{width:100%;height:100%;display:block}
+.deco-top{top:0}
+.deco-bottom{bottom:0}
+body{position:relative;background:#fffefb;color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%;min-height:100vh}
+/* ふちから淡い色がにじむ背景（ピンク・黄色・ミント・ラベンダー） */
+body::before{content:none;position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(70% 45% at 0% 0%, rgba(246,182,196,.55), transparent 70%),
+    radial-gradient(70% 40% at 100% 0%, rgba(250,222,150,.55), transparent 70%),
+    radial-gradient(60% 45% at 100% 55%, rgba(190,226,200,.5), transparent 70%),
+    radial-gradient(70% 45% at 0% 100%, rgba(214,198,240,.55), transparent 70%),
+    radial-gradient(60% 40% at 100% 100%, rgba(246,190,200,.45), transparent 70%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55  0 0 0 0 .45  0 0 0 0 .35  0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
+.card-x{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
+.hand{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400}
+.bear{display:block;margin:0 auto}
+.bear-img{max-width:70%;height:auto;mix-blend-mode:multiply;animation:floaty 3.6s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.bear .balloon{animation:floaty 3.2s ease-in-out infinite;transform-origin:center}
+.wrap{max-width:520px;margin:0 auto;padding:70px 16px 150px}
+.card{background:transparent;border-radius:22px;padding:18px 4px;margin-bottom:12px}
+h1{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:27px;line-height:1.55;margin:6px 0 12px;text-align:center;color:#5a3a2e;letter-spacing:.04em}
+h1 .em{color:#5a3a2e}
+h2{font-size:19px;line-height:1.5;margin:0 0 6px;font-weight:900}
+p{margin:0 0 10px}
+.lead{text-align:center;color:var(--sub);font-size:15px}
+.badge{display:inline-block;background:var(--pink-lt);color:#d0588c;border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700}
+.center{text-align:center}
+.hero-ill{font-size:56px;text-align:center;margin:4px 0}
+.points{list-style:none;padding:0;margin:14px 0 0}
+.points li{background:var(--lav-lt);border-radius:14px;padding:10px 12px;margin-bottom:8px;font-size:15px}
+.btn{display:block;width:100%;border:0;border-radius:999px;padding:15px 18px;font:inherit;font-weight:900;font-size:17px;cursor:pointer;text-align:center;text-decoration:none;transition:transform .08s, opacity .2s}
+.btn:active{transform:scale(.98)}
+.btn-main{background:var(--main);color:#fff;box-shadow:0 5px 14px rgba(236,141,156,.32)}
+.btn-line{background:var(--green);color:#fff}
+.btn-ghost{background:transparent;color:var(--sub);font-size:14px;font-weight:700;padding:10px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:2px 0 6px}
+.progress i{display:block;height:100%;background:var(--main);width:0;transition:width .3s}
+.step-label{font-size:13px;color:var(--sub);text-align:right;margin-bottom:10px}
+.q-help{font-size:14px;color:var(--sub);margin-bottom:12px}
+label.opt{display:flex;align-items:center;gap:10px;border:2px solid var(--line);border-radius:14px;padding:11px 12px;margin-bottom:8px;cursor:pointer;font-size:15px;background:#fff;transition:border-color .15s, background .15s}
+label.opt input{accent-color:var(--main);width:20px;height:20px;flex:none}
+label.opt:has(input:checked){border-color:var(--main);background:var(--lav-lt)}
+.group-title{font-size:13px;font-weight:700;color:var(--main-dk);margin:14px 0 6px}
+input[type=date],textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+textarea{min-height:84px;resize:vertical}
+input[type=date]:focus,textarea:focus{outline:none;border-color:var(--main)}
+.scale{display:flex;gap:8px;margin:6px 0 4px}
+.scale label{flex:1;text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px 0;cursor:pointer;font-weight:900;font-size:18px;background:#fff}
+.scale input{position:absolute;opacity:0;pointer-events:none}
+.scale label:has(input:checked){background:var(--main);color:#fff;border-color:transparent}
+.scale-cap{display:flex;justify-content:space-between;font-size:12px;color:var(--sub)}
+.nav{display:flex;gap:10px;margin-top:16px}
+.nav .btn-ghost{width:auto;flex:none}
+.err{color:#d0588c;font-size:14px;min-height:1.5em;margin-top:6px}
+.small{font-size:12.5px;color:var(--sub);line-height:1.7}
+.result-type{background:var(--tint);border-radius:20px;padding:16px 16px 20px;text-align:center;margin-bottom:14px}
+.result-type .name{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:24px;color:var(--main-dk);margin:2px 0 4px}
+.result-type .catch{font-size:15px;color:var(--sub)}
+.box{background:var(--lav-lt);border-radius:16px;padding:14px;margin:10px 0}
+.box.pink{background:var(--pink-lt)}
+.box h3{margin:0 0 4px;font-size:15px;font-weight:900}
+.locked{position:relative;border:2px dashed var(--main);border-radius:16px;padding:14px;margin:14px 0;background:#fff}
+.locked ul{margin:6px 0 0;padding-left:1.2em}
+.locked .blur{filter:blur(4px);user-select:none;color:var(--sub);margin-top:8px}
+.code{display:inline-block;font-size:22px;letter-spacing:.15em;font-weight:900;background:var(--yellow);padding:2px 12px;border-radius:10px}
+.line-steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.line-steps li{margin-bottom:12px}
+.line-steps .num{display:inline-block;background:var(--main);color:#fff;border-radius:99px;width:24px;height:24px;text-align:center;line-height:24px;font-size:13px;margin-right:6px}
+.hidden{display:none !important}
+footer{text-align:center;font-size:12px;color:var(--sub);margin-top:20px}
+</style>
+</head>
+<body>
+<div class="deco deco-top" aria-hidden="true">
+  <svg viewBox="0 0 375 170" preserveAspectRatio="xMidYMin slice">
+    <defs>
+      <filter id="wc" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="3" seed="7" result="t"/>
+        <feDisplacementMap in="SourceGraphic" in2="t" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="2" result="n"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -.9 .55" result="spots"/>
+        <feComposite in="spots" in2="d" operator="in" result="s2"/>
+        <feMerge><feMergeNode in="d"/><feMergeNode in="s2"/></feMerge>
+      </filter>
+      <pattern id="stripe" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
+        <rect width="9" height="4" fill="#f6d77e"/>
+      </pattern>
+    </defs>
+    <g filter="url(#wc)" opacity=".85">
+      <circle cx="18" cy="30" r="62" fill="#f9d79a"/>
+      <circle cx="122" cy="8" r="56" fill="#f7bccb"/>
+      <circle cx="238" cy="2" r="64" fill="#9fd6d2"/>
+      <circle cx="350" cy="62" r="46" fill="#b9dcb8"/>
+      <ellipse cx="95" cy="116" rx="11" ry="6" fill="#f7bccb" transform="rotate(25 95 116)"/>
+      <ellipse cx="300" cy="128" rx="8" ry="5" fill="#9fd6d2" transform="rotate(-20 300 128)"/>
+    </g>
+    <rect x="300" y="0" width="80" height="60" fill="url(#stripe)" opacity=".7"/>
+  </svg>
+</div>
+<div class="deco deco-bottom" aria-hidden="true">
+  <svg viewBox="0 0 375 170" preserveAspectRatio="xMidYMax slice">
+    <g filter="url(#wc)" opacity=".85">
+      <circle cx="40" cy="175" r="78" fill="#b9dcb8"/>
+      <circle cx="205" cy="190" r="70" fill="#f9d79a"/>
+      <circle cx="350" cy="160" r="58" fill="#f6c6c4"/>
+      <ellipse cx="190" cy="78" rx="12" ry="6" fill="#f9d79a" transform="rotate(-25 190 78)"/>
+      <ellipse cx="18" cy="60" rx="9" ry="5" fill="#b9dcb8" transform="rotate(30 18 60)"/>
+      <ellipse cx="362" cy="52" rx="8" ry="5" fill="#f7bccb" transform="rotate(-30 362 52)"/>
+    </g>
+  </svg>
+</div>
+<div class="wrap">
+
+  <!-- ===== スタート ===== -->
+  <section id="start">
+    <div class="card">
+      <div class="center"><span class="badge">無料・約1分</span></div>
+      <div id="heroBear" style="margin:6px 0 2px"></div>
+      <h1>大人の<br><span class="em">「困った」タイプ</span>診断</h1>
+      <p class="lead">毎日の困りごとから、<br>あなたのタイプと、ラクになるヒントがわかります。</p>
+      <ul class="points">
+        <li>🎈 「なんでいつもこうなんだろう」の、理由のヒントが見つかる</li>
+        <li>💬 あなたに合うヒントを、なつこが公式LINEで読み解いてお届け</li>
+        <li>🌸 毎日がんばっているあなたへのメッセージつき</li>
+      </ul>
+    </div>
+    <button class="btn btn-main" id="btnStart">診断をはじめる</button>
+    <p class="small center" style="margin-top:12px">※ この診断は医療的な診断ではありません。<br>あなたの「困りごとのタイプ」を知って、毎日をラクにするヒントにするためのものです。</p>
+  </section>
+
+  <!-- ===== 質問 ===== -->
+  <section id="quiz" class="hidden">
+    <div class="progress"><i id="bar"></i></div>
+    <div class="step-label" id="stepLabel"></div>
+    <div class="card" id="qCard"></div>
+    <div class="err" id="err"></div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="btnBack">← もどる</button>
+      <button class="btn btn-main" id="btnNext">つぎへ</button>
+    </div>
+  </section>
+
+  <!-- ===== 送信中 ===== -->
+  <section id="loading" class="hidden">
+    <div class="card center">
+      <div id="loadBear"></div>
+      <h2 style="color:var(--main-dk)">タイプを読み解いています…</h2>
+      <p class="small">少しだけお待ちください</p>
+    </div>
+  </section>
+
+  <!-- ===== 結果 ===== -->
+  <section id="result" class="hidden"></section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+/* =========================================================
+   ★ 設定（ここだけ書きかえればOK）
+   ========================================================= */
+const SETTINGS = {
+  // Googleスプレッドシートの受け口（Apps Script の「ウェブアプリURL」）。空なら保存しない
+  SHEET_URL: "",
+  // ① 友だち追加のリンク（UTAGEで作ったADHD専用の登録リンク。今はプロフィールと同じもの）
+  LINE_ADD_URL: "https://utage-system.com/line/open/BqxLRpFGPyoa?mtid=9oB92qZXlOSz", // UTAGE「子供ADHD 登録時」の登録経路「困ったタイプ診断アプリ」
+  // ② 公式LINEのベーシックID（@から始まるID）。入れると「結果をLINEに送る」ボタンが使える
+  LINE_BASIC_ID: "",
+  // 表示名
+  NAME: "なつこ",
+  PROFILE: "800gで生まれた凸凹の娘を育てる母"
+};
+
+/* =========================================================
+   困りごと（選択肢）とタイプの対応
+   ========================================================= */
+const ITEMS = [
+  {id:"e1", type:"engine",  text:"やらなきゃいけないことを後回しにしてしまう"},
+  {id:"e2", type:"engine",  text:"朝がつらく、動き出すまで時間がかかる"},
+  {id:"e3", type:"engine",  text:"締め切りギリギリにならないと動けない"},
+  {id:"u1", type:"ukkari",  text:"忘れ物・なくし物が多い"},
+  {id:"u2", type:"ukkari",  text:"約束や予定を、うっかり忘れてしまう"},
+  {id:"u3", type:"ukkari",  text:"人の話の途中で、別のことを考えてしまう"},
+  {id:"b1", type:"afure",   text:"イライラして、家族にきつく言ってしまう"},
+  {id:"b2", type:"afure",   text:"ちょっとしたことで落ち込んで、引きずる"},
+  {id:"b3", type:"afure",   text:"言われたひとことを、何度も思い出してしまう"},
+  {id:"s1", type:"aremo",   text:"家事や仕事の段取りがうまくいかない"},
+  {id:"s2", type:"aremo",   text:"いくつものことを同時にすると混乱する"},
+  {id:"s3", type:"aremo",   text:"部屋やカバンがすぐ散らかる"},
+  {id:"g1", type:"ganbari", text:"夢中になると、時間や食事を忘れてしまう"},
+  {id:"g2", type:"ganbari", text:"人に合わせすぎて、あとでどっと疲れる"},
+  {id:"g3", type:"ganbari", text:"休んでいても、頭が休まらない"}
+];
+const GROUPS = [
+  {title:"取りかかり", ids:["e1","e2","e3"]},
+  {title:"うっかり",   ids:["u1","u2","u3"]},
+  {title:"気持ち",     ids:["b1","b2","b3"]},
+  {title:"段取り・片づけ", ids:["s1","s2","s3"]},
+  {title:"疲れやすさ", ids:["g1","g2","g3"]}
+];
+
+const TYPES = {
+  engine:{name:"エンジンゆっくりタイプ", catch:"スイッチが入ると、ぐんと進める人",
+    feature:"やる気がないのではなく、動き出すまでのエンジンがかかるのに、少し時間がかかるタイプです。ギリギリで力が出るのは、締め切りがエンジンのかわりになっているから、なのかもしれません。自分を責めるより、エンジンがかかりやすい「きっかけ」を用意してあげると、ぐっとラクになります。"},
+  ukkari:{name:"うっかり冒険家タイプ", catch:"頭の中に、アイデアがいっぱいの人",
+    feature:"頭の中にいろいろなことが次々と浮かぶタイプです。目の前の「おもしろい」「気になる」に気持ちが向きやすく、覚えておくことが後回しになりがち。だらしないのではなく、頭の中がいつもにぎやかなのかもしれません。"},
+  afure:{name:"気持ちあふれタイプ", catch:"感じる力が、人一倍強い人",
+    feature:"うれしいも、悲しいも、人一倍強く感じるタイプです。外でがまんしてためた気持ちが、安心できる家族の前であふれてしまうことも。きつく言ってしまったあとに落ち込むのは、それだけ大切に思っているから、なのかもしれません。"},
+  aremo:{name:"あれもこれもタイプ", catch:"いろんなことに、気がつける人",
+    feature:"気がつく力が強い分、やることが一度に頭に浮かんで、どれから手をつけるか迷いやすいタイプです。散らかるのは、片づける気がないからではなく、頭の中の「やること」が多すぎるからかもしれません。順番を紙に書き出してみると、少し動きやすくなることがあります。"},
+  ganbari:{name:"がんばりすぎタイプ", catch:"まわりのために、全力を出せる人",
+    feature:"夢中になると時間を忘れて集中でき、人に合わせて動ける、やさしくてがんばれるタイプです。その分、気づかないうちにエネルギーを使いきってしまいがち。疲れやすいのは弱いからではなく、いつも全力だからかもしれません。眠れない日や体の不調が続くときは、病院にも相談してみてくださいね。"},
+  other:{name:"オーダーメイドタイプ", catch:"あなただけの「困った」を、いっしょに見ていきます",
+    feature:"書いてくれた困りごとは、5つのタイプにぴったり当てはまらない、あなたならではのものかもしれません。だからこそ、型に当てはめずに見ていきたいと思っています。書いてくれた内容に合わせて、LINEで一人ひとりに読み解いてお送りしますね。"}
+};
+
+/* =========================================================
+   くまのイラスト（風船の色はタイプごとに変わる）
+   ========================================================= */
+// くまの絵は子ども版と同じ6枚を使う（../img/）
+const IMGMAP = {engine:"asa", ukkari:"ukkari", afure:"bakuhatsu", aremo:"switch", ganbari:"kirikae", other:"other"};
+const TINT = {
+  ganbari:["#eef8f0","#dcf0e0"], ukkari:["#fff8e2","#fdeebf"], afure:["#fdeeee","#f9dcdc"],
+  aremo:["#f4f0fb","#e6def6"], engine:["#eef5fc","#dbe9f8"], other:["#fdf1ea","#f9e0d2"]
+};
+function setTint(type){
+  const [a,b] = TINT[type] || TINT.ukkari;
+  document.documentElement.style.setProperty("--tint", a);
+  document.documentElement.style.setProperty("--tint2", b);
+}
+function bearImg(type, w){
+  return `<img class="bear bear-img" src="../img/${IMGMAP[type]||type}.jpg" width="${w}" height="${w}" alt="風船を持ったくま">`;
+}
+const SELF_CHECKS = [
+  "できない自分を責めてしまう",
+  "まわりにわかってもらえないと感じる",
+  "ひとりで抱えている感じがする",
+  "「ちゃんとしなきゃ」と思いすぎる",
+  "ゆっくり休めていない"
+];
+const CONSULT = ["はい、相談してみたい","いつか相談したいかも","今はだいじょうぶ"];
+const AGES = ["10代","20代","30代","40代","50代","60代以上"];
+const LIFE = {
+  kosodate:{label:"子育て中", note:"子どもの「困った」と自分の「困った」が重なると、毎日がいっぱいいっぱいになりやすいものです。自分のタイプを知ることが、お子さんとの関わりのヒントになることもあります。"},
+  shigoto:{label:"お仕事が中心", note:"職場では、まわりに合わせるだけでたくさんのエネルギーを使っています。家に帰ってぐったりする日があるのは、それだけがんばっているからかもしれません。"},
+  ryouhou:{label:"子育てとお仕事の両方", note:"お仕事と子育ての両方で、毎日いくつもの役割をこなしているあなた。できなかったことより、今日できたことを一つ数えてみてくださいね。"},
+  sonota:{label:"その他", note:"毎日の中で、自分の「困った」に向き合おうとしていること自体が、大きな一歩です。"}
+};
+
+/* =========================================================
+   状態
+   ========================================================= */
+const S = {age:"", life:"", gender:"", items:[], other:"", top:"", strength:"", fatigue:"", selfChecks:[], consult:"", agree:false};
+
+/* =========================================================
+   質問のステップ
+   ========================================================= */
+const STEPS = [
+  { // 1 年代・毎日・性別
+    render(){
+      return `<h2>あなたのことを教えてください</h2>
+      <p class="q-help">あなたに合わせたヒントをお届けするために使います。</p>
+      <div class="group-title">年代</div>
+      ${AGES.map(a=>`<label class="opt"><input type="radio" name="age" value="${a}" ${S.age===a?"checked":""}>${a}</label>`).join("")}
+      <div class="group-title">いまの毎日は？</div>
+      ${Object.entries(LIFE).map(([k,v])=>`<label class="opt"><input type="radio" name="life" value="${k}" ${S.life===k?"checked":""}>${v.label}</label>`).join("")}
+      <div class="group-title">性別（任意）</div>
+      ${["女性","男性","答えない"].map(g=>`<label class="opt"><input type="radio" name="gender" value="${g}" ${S.gender===g?"checked":""}>${g}</label>`).join("")}`;
+    },
+    save(){
+      const pick = n => { const x = document.querySelector(`input[name=${n}]:checked`); return x?x.value:""; };
+      S.age = pick("age"); S.life = pick("life"); S.gender = pick("gender");
+      if(!S.age) return "年代を選んでください";
+      if(!S.life) return "いまの毎日を選んでください";
+    }
+  },
+  { // 2 困りごと
+    render(){
+      return `<h2>最近、困っていることはどれですか？</h2>
+      <p class="q-help">あてはまるものを、いくつでも選んでください。</p>
+      ${GROUPS.map(g=>`<div class="group-title">${g.title}</div>`+g.ids.map(id=>{
+        const it = ITEMS.find(x=>x.id===id);
+        return `<label class="opt"><input type="checkbox" name="items" value="${id}" ${S.items.includes(id)?"checked":""}>${it.text}</label>`;
+      }).join("")).join("")}
+      <div class="group-title">その他（自由に書いてください）</div>
+      <textarea id="other" maxlength="300" placeholder="例）お金の管理が苦手、人の名前を覚えられない、など">${esc(S.other)}</textarea>`;
+    },
+    save(){
+      S.items = [...document.querySelectorAll('input[name=items]:checked')].map(x=>x.value);
+      S.other = document.getElementById("other").value.trim();
+      if(!S.items.length && !S.other) return "ひとつ以上選ぶか、その他に書いてください";
+    }
+  },
+  { // 3 いちばん困っていること＋強さ
+    render(){
+      const list = S.items.map(id=>ITEMS.find(x=>x.id===id));
+      if (S.other) list.push({id:"other", text:"その他：" + S.other.slice(0,30) + (S.other.length>30?"…":"")});
+      if (list.length===1) S.top = list[0].id;
+      return `<h2>この中で、いちばん困っているのは？</h2>
+      ${list.map(it=>`<label class="opt"><input type="radio" name="top" value="${it.id}" ${S.top===it.id?"checked":""}>${esc(it.text)}</label>`).join("")}
+      <div class="group-title" style="margin-top:18px">どのくらい困っていますか？</div>
+      <div class="scale">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="strength" value="${n}" ${S.strength==n?"checked":""}>${n}</label>`).join("")}</div>
+      <div class="scale-cap"><span>少し</span><span>とても</span></div>`;
+    },
+    save(){
+      const t = document.querySelector('input[name=top]:checked'); S.top = t?t.value:"";
+      const s = document.querySelector('input[name=strength]:checked'); S.strength = s?s.value:"";
+      if(!S.top) return "いちばん困っていることを選んでください";
+      if(!S.strength) return "困っている度合いを選んでください";
+    }
+  },
+  { // 4 あなたの気持ち
+    render(){
+      return `<h2>いまの気持ちも、少しだけ聞かせてください</h2>
+      <p class="q-help">毎日がんばっているあなたに、メッセージをお届けします。</p>
+      <div class="group-title">いまの疲れ度は？</div>
+      <div class="scale">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="fatigue" value="${n}" ${S.fatigue==n?"checked":""}>${n}</label>`).join("")}</div>
+      <div class="scale-cap"><span>元気</span><span>くたくた</span></div>
+      <div class="group-title" style="margin-top:16px">あてはまるもの（いくつでも）</div>
+      ${SELF_CHECKS.map((m,i)=>`<label class="opt"><input type="checkbox" name="self" value="${i}" ${S.selfChecks.includes(m)?"checked":""}>${m}</label>`).join("")}`;
+    },
+    save(){
+      const f = document.querySelector('input[name=fatigue]:checked'); S.fatigue = f?f.value:"";
+      S.selfChecks = [...document.querySelectorAll('input[name=self]:checked')].map(x=>SELF_CHECKS[+x.value]);
+      if(!S.fatigue) return "疲れ度を選んでください";
+    }
+  },
+  { // 5 相談・同意
+    render(){
+      return `<h2>最後の質問です</h2>
+      <div class="group-title">あなたのことを、個別に相談してみたいですか？</div>
+      ${CONSULT.map(c=>`<label class="opt"><input type="radio" name="consult" value="${c}" ${S.consult===c?"checked":""}>${c}</label>`).join("")}
+      <label class="opt" style="margin-top:16px"><input type="checkbox" id="agree" ${S.agree?"checked":""}><span class="small" style="color:var(--ink)">回答内容を、診断結果のお届けと、個別相談などのご案内をLINEでお送りするために使うことに同意します（第三者には渡しません）</span></label>`;
+    },
+    save(){
+      const c = document.querySelector('input[name=consult]:checked'); S.consult = c?c.value:"";
+      S.agree = document.getElementById("agree").checked;
+      if(!S.consult) return "ひとつ選んでください";
+      if(!S.agree) return "同意のチェックをお願いします";
+    }
+  }
+];
+
+/* =========================================================
+   画面の動き
+   ========================================================= */
+let cur = 0;
+const $ = id => document.getElementById(id);
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function show(id){["start","quiz","loading","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id)); window.scrollTo(0,0);}
+function renderStep(){
+  $("qCard").innerHTML = STEPS[cur].render();
+  $("bar").style.width = ((cur)/STEPS.length*100)+"%";
+  $("stepLabel").textContent = `${cur+1} / ${STEPS.length}`;
+  $("btnBack").style.visibility = cur===0?"hidden":"visible";
+  $("btnNext").textContent = cur===STEPS.length-1 ? "結果を見る" : "つぎへ";
+  $("err").textContent = "";
+}
+$("btnStart").onclick = ()=>{cur=0; show("quiz"); renderStep();};
+$("btnBack").onclick = ()=>{STEPS[cur].save(); if(cur>0){cur--; renderStep(); window.scrollTo(0,0);}};
+$("btnNext").onclick = ()=>{
+  const e = STEPS[cur].save();
+  if (e){ $("err").textContent = e; return; }
+  if (cur<STEPS.length-1){ cur++; renderStep(); window.scrollTo(0,0); }
+  else finish();
+};
+$("footer").textContent = `© ${SETTINGS.NAME}｜${SETTINGS.PROFILE}`;
+// 画面のふちに浮かぶ、淡い色の風船
+(function(){
+  const list = [
+    // [色, 左/右, 位置(%), 大きさpx, 傾き, ゆれの遅れ秒]
+    ["#f6b6c4","left", 4,  54, -10, 0],
+    ["#fadc8f","right",3,  46,  12, 1.2],
+    ["#bfe3c9","right",30, 40,   8, .6],
+    ["#d7c7f0","left", 38, 44,  -8, 1.8],
+    ["#a9cdee","left", 66, 38,  -6, .9],
+    ["#f8c7a8","right",58, 50,  10, 2.2],
+    ["#f6b6c4","right",86, 42,   6, 1.5],
+    ["#fadc8f","left", 90, 48, -12, .3]
+  ];
+  return; // ふちの風船はやめて、上下の水彩の枠にした
+  $("deco").innerHTML = list.map(([c,side,top,w,rot,delay])=>`
+    <svg class="bl" style="${side}:-${Math.round(w*.25)}px;top:${top}%;width:${w}px;animation-delay:${delay}s;transform:rotate(${rot}deg)" viewBox="0 0 40 80">
+      <path d="M20 47 C16 58, 24 66, 19 80" fill="none" stroke="#c9b8a6" stroke-width="1"/>
+      <ellipse cx="20" cy="22" rx="17" ry="21" fill="${c}"/>
+      <path d="M17 43 l3 4 l3 -4 z" fill="${c}"/>
+      <path d="M11 11 q-4 6 -2 13" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+    </svg>`).join("");
+})();
+$("heroBear").innerHTML = bearImg("ukkari", 220);
+$("loadBear").innerHTML = bearImg("ganbari", 170);
+// 結果画面のくまを先に読みこんでおく
+Object.keys(TYPES).forEach(t=>{ const i=new Image(); i.src=`../img/${IMGMAP[t]}.jpg`; });
+
+/* =========================================================
+   判定
+   ========================================================= */
+function judge(){
+  const score = {engine:0, ukkari:0, afure:0, aremo:0, ganbari:0};
+  S.items.forEach(id=>{ score[ITEMS.find(x=>x.id===id).type] += 1; });
+  const topItem = ITEMS.find(x=>x.id===S.top);
+  if (topItem) score[topItem.type] += 2;               // いちばん困っていることは重みを大きく
+  let best = Object.keys(score).sort((a,b)=>score[b]-score[a])[0];
+  if (score[best]===0) best = "other";                  // 「その他」だけのときは専用の結果
+  return {type:best, score};
+}
+function makeCode(){
+  const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s="";
+  const r = crypto.getRandomValues(new Uint8Array(6)); r.forEach(n=>s+=c[n%c.length]); return "O-"+s;
+}
+
+async function finish(){
+  show("loading");
+  const {type, score} = judge();
+  const code = makeCode();
+  const topText = S.top==="other" ? "その他："+S.other : (ITEMS.find(x=>x.id===S.top)||{}).text;
+  const payload = {
+    kind:"大人", code, type: TYPES[type].name, age:S.age, life:LIFE[S.life].label, gender:S.gender,
+    items: S.items.map(id=>ITEMS.find(x=>x.id===id).text).join(" / "),
+    other:S.other, top:topText, strength:S.strength,
+    fatigue:S.fatigue, selfChecks:S.selfChecks.join(" / "), consult:S.consult,
+    score: Object.entries(score).map(([k,v])=>`${TYPES[k].name.replace("タイプ","")}:${v}`).join(" "),
+    ua: navigator.userAgent.slice(0,120)
+  };
+  const wait = new Promise(r=>setTimeout(r,1400));
+  if (SETTINGS.SHEET_URL){
+    try{
+      await fetch(SETTINGS.SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+    }catch(e){ /* 保存に失敗しても結果は表示する */ }
+  }
+  await wait;
+  renderResult(type, code);
+  show("result");
+}
+
+/* =========================================================
+   結果画面
+   ========================================================= */
+function renderResult(type, code){
+  const T = TYPES[type];
+  setTint(type);
+  const tired = +S.fatigue>=4 || S.selfChecks.length>=2;
+  let selfMsg = tired
+    ? "ここまで、本当によくがんばってきましたね。うまくいかないのは、努力が足りないからではありません。あなたに合うやり方に、まだ出会っていないだけかもしれません。まずは、ここまでがんばってきた自分を、認めてあげてくださいね。"
+    : "自分のことを知ろうとして、ここまで答えてくれたこと。それ自体が、自分を大切にする第一歩です。うまくいかない日があっても大丈夫。まわりの人と同じくらい、あなた自身のことも、大切にしてあげてくださいね。";
+  if (S.selfChecks.includes(SELF_CHECKS[0])) selfMsg += "<br><br>「困った」を、あなたの性格や努力のせいだと決めつけなくて大丈夫ですよ。";
+  // LINEに送ってもらう文（なつこさんがトークで回答内容を見られるように、答えも入れる）
+  const topText = S.top==="other" ? "その他" : ((ITEMS.find(x=>x.id===S.top)||{}).text || "");
+  const lineText = [
+    "【大人の困ったタイプ診断】",
+    `診断コード：${code}`,
+    `タイプ：${T.name}`,
+    `年代：${S.age}`,
+    `いまの毎日：${LIFE[S.life].label}`,
+    S.gender ? `性別：${S.gender}` : "",
+    `困っていること：${S.items.map(id=>ITEMS.find(x=>x.id===id).text).join("／") || "なし"}`,
+    S.other ? `その他：${S.other}` : "",
+    `いちばん困っていること：${topText}（困り度 ${S.strength}/5）`,
+    `疲れ度：${S.fatigue}/5`,
+    S.selfChecks.length ? `いまの気持ち：${S.selfChecks.join("／")}` : "",
+    `個別相談：${S.consult}`,
+    "",
+    "読み解きをお願いします🌸"
+  ].filter((l,i,a)=>l!=="" || i===a.length-2).join("\n");
+  const canSend = !!SETTINGS.LINE_BASIC_ID;
+  const sendUrl = canSend ? `https://line.me/R/oaMessage/${encodeURIComponent(SETTINGS.LINE_BASIC_ID)}/?${encodeURIComponent(lineText)}` : "";
+
+  $("result").innerHTML = `
+  <div class="card">
+    <div class="center"><span class="badge">あなたの「困った」タイプ</span></div>
+    <div class="result-type" style="margin-top:12px">
+      ${bearImg(type, 190)}
+      <div class="name">${T.name}</div>
+      <div class="catch">${T.catch}</div>
+    </div>
+    <div class="box"><h3>このタイプの特徴</h3><p style="margin:0">${T.feature}</p></div>
+    <div class="box"><h3>${LIFE[S.life].label}のあなたへ</h3><p style="margin:0">${LIFE[S.life].note}</p></div>
+
+    <div class="locked">
+      <h3 style="margin:0">🎈 あなたのタイプを、もう少しくわしく</h3>
+      <p style="margin:8px 0 0">あなたに合うやり方は、同じタイプでも一人ひとり少しずつちがいます。アプリの画面では文章でお伝えしきれないので、くわしい内容は公式LINEでお送りしています。</p>
+    </div>
+
+    <p style="margin:4px 0 10px">下の<strong>診断コード</strong>をコピーして公式LINEに送っていただくと、あなたの気質・特性・タイプに合わせて、なつこが読み解いて、より詳しくお送りしますね。</p>
+    <ol class="line-steps">
+      <li><span class="num">1</span><strong>診断コードをコピーする</strong>
+        <p class="small" style="margin:6px 0">あなたの診断コード：<span class="code">${code}</span></p>
+        ${canSend
+          ? `<a class="btn btn-main" href="${sendUrl}" target="_blank" rel="noopener">LINEにコードを送る</a>`
+          : `<button class="btn btn-main" id="btnCopy">コードをコピーする</button>`}
+        <p class="small" style="margin-top:6px">年代や困りごと、いまの気持ちなど、答えてくださった内容も一緒にコピーされます。読み解きに使わせていただきますね。</p>
+      </li>
+      <li><span class="num">2</span><strong>公式LINEに送る</strong>
+        <a class="btn btn-line" style="margin-top:8px" href="${SETTINGS.LINE_ADD_URL}" target="_blank" rel="noopener">公式LINEをひらく</a>
+        <p class="small" style="margin-top:6px">友だち追加をしたら、トークにコードを貼りつけて送ってくださいね。</p></li>
+    </ol>  </div>
+
+  <div class="card">
+    <div class="box pink" style="margin:0">
+      <h3>🌸 あなたへ</h3>
+      <p style="margin:0">${selfMsg}</p>
+    </div>
+    ${S.consult===CONSULT[0] ? `<p class="small" style="margin-top:12px">「相談してみたい」を選んでくださってありがとうございます。LINEで、個別相談のご案内もお送りしますね。</p>` : ""}
+  </div>
+
+  <p class="small center">※ この診断は医療的な診断ではありません。気になることが続くときは、医療機関や地域の相談窓口にも相談してくださいね。</p>
+  <button class="btn btn-ghost" onclick="location.reload()">もう一度診断する</button>`;
+
+  const cp = document.getElementById("btnCopy");
+  if (cp) cp.onclick = async ()=>{
+    try{ await navigator.clipboard.writeText(lineText); cp.textContent="コピーしました ✓"; }
+    catch(e){ cp.textContent = "コード：" + code; }
+  };
+}
+</script>
+</body>
+</html>
