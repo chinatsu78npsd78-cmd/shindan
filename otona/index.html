@@ -262,7 +262,6 @@ const SELF_CHECKS = [
   "ゆっくり休めていない"
 ];
 const CONSULT = ["はい、相談してみたい","いつか相談したいかも","今はだいじょうぶ"];
-const AGES = ["10代","20代","30代","40代","50代","60代以上"];
 const LIFE = {
   kosodate:{label:"子育て中", note:"子どもの「困った」と自分の「困った」が重なると、毎日がいっぱいいっぱいになりやすいものです。自分のタイプを知ることが、お子さんとの関わりのヒントになることもあります。"},
   shigoto:{label:"お仕事が中心", note:"職場では、まわりに合わせるだけでたくさんのエネルギーを使っています。家に帰ってぐったりする日があるのは、それだけがんばっているからかもしれません。"},
@@ -273,18 +272,28 @@ const LIFE = {
 /* =========================================================
    状態
    ========================================================= */
-const S = {age:"", life:"", gender:"", items:[], other:"", top:"", strength:"", fatigue:"", selfChecks:[], consult:"", agree:false};
+const S = {birth:"", life:"", gender:"", items:[], other:"", top:"", strength:"", fatigue:"", selfChecks:[], consult:"", agree:false};
+
+/* =========================================================
+   年齢・学年
+   ========================================================= */
+function calcAge(birth){
+  const b = new Date(birth+"T00:00:00"), t = new Date();
+  let age = t.getFullYear()-b.getFullYear();
+  if (t.getMonth()<b.getMonth() || (t.getMonth()===b.getMonth() && t.getDate()<b.getDate())) age--;
+  return age;
+}
 
 /* =========================================================
    質問のステップ
    ========================================================= */
 const STEPS = [
-  { // 1 年代・毎日・性別
+  { // 1 生年月日・毎日・性別
     render(){
       return `<h2>あなたのことを教えてください</h2>
       <p class="q-help">あなたに合わせたヒントをお届けするために使います。</p>
-      <div class="group-title">年代</div>
-      ${AGES.map(a=>`<label class="opt"><input type="radio" name="age" value="${a}" ${S.age===a?"checked":""}>${a}</label>`).join("")}
+      <div class="group-title">生年月日</div>
+      <input type="date" id="birth" value="${S.birth}" max="${new Date().toISOString().slice(0,10)}">
       <div class="group-title">いまの毎日は？</div>
       ${Object.entries(LIFE).map(([k,v])=>`<label class="opt"><input type="radio" name="life" value="${k}" ${S.life===k?"checked":""}>${v.label}</label>`).join("")}
       <div class="group-title">性別（任意）</div>
@@ -292,8 +301,9 @@ const STEPS = [
     },
     save(){
       const pick = n => { const x = document.querySelector(`input[name=${n}]:checked`); return x?x.value:""; };
-      S.age = pick("age"); S.life = pick("life"); S.gender = pick("gender");
-      if(!S.age) return "年代を選んでください";
+      S.birth = document.getElementById("birth").value; S.life = pick("life"); S.gender = pick("gender");
+      if(!S.birth) return "生年月日を入れてください";
+      const a = calcAge(S.birth); if (a<10||a>100) return "生年月日をもう一度確認してください";
       if(!S.life) return "いまの毎日を選んでください";
     }
   },
@@ -438,7 +448,7 @@ async function finish(){
   const code = makeCode();
   const topText = S.top==="other" ? "その他："+S.other : (ITEMS.find(x=>x.id===S.top)||{}).text;
   const payload = {
-    kind:"大人", code, type: TYPES[type].name, age:S.age, life:LIFE[S.life].label, gender:S.gender,
+    kind:"大人", code, type: TYPES[type].name, birth:S.birth, age:calcAge(S.birth), life:LIFE[S.life].label, gender:S.gender,
     items: S.items.map(id=>ITEMS.find(x=>x.id===id).text).join(" / "),
     other:S.other, top:topText, strength:S.strength,
     fatigue:S.fatigue, selfChecks:S.selfChecks.join(" / "), consult:S.consult,
@@ -473,7 +483,7 @@ function renderResult(type, code){
     "【大人の困ったタイプ診断】",
     `診断コード：${code}`,
     `タイプ：${T.name}`,
-    `年代：${S.age}`,
+    `生年月日：${S.birth}（${calcAge(S.birth)}歳）`,
     `いまの毎日：${LIFE[S.life].label}`,
     S.gender ? `性別：${S.gender}` : "",
     `困っていること：${S.items.map(id=>ITEMS.find(x=>x.id===id).text).join("／") || "なし"}`,
@@ -511,7 +521,7 @@ function renderResult(type, code){
         ${canSend
           ? `<a class="btn btn-main" href="${sendUrl}" target="_blank" rel="noopener">LINEにコードを送る</a>`
           : `<button class="btn btn-main" id="btnCopy">コードをコピーする</button>`}
-        <p class="small" style="margin-top:6px">年代や困りごと、いまの気持ちなど、答えてくださった内容も一緒にコピーされます。読み解きに使わせていただきますね。</p>
+        <p class="small" style="margin-top:6px">生年月日や困りごと、いまの気持ちなど、答えてくださった内容も一緒にコピーされます。読み解きに使わせていただきますね。</p>
       </li>
       <li><span class="num">2</span><strong>公式LINEに送る</strong>
         <a class="btn btn-line" style="margin-top:8px" href="${SETTINGS.LINE_ADD_URL}" target="_blank" rel="noopener">公式LINEをひらく</a>
