@@ -7,20 +7,33 @@
 <meta name="description" content="1分でわかる、うちの子の「困った」タイプ。年齢と困りごとから、今日から使えるヒントをお届けします。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fbf6ff; --card:#ffffff; --ink:#4a3b5c; --sub:#7d6c90; --line:#e8dcf5;
-  --main:#a77fd6; --main-dk:#8a5fc0; --pink:#f29bbf; --pink-lt:#fde7f0; --lav-lt:#f1e8fb;
-  --yellow:#ffe9a8; --green:#06c755;
+  --bg:#fdf8f0; --card:#fffdf9; --ink:#5b4636; --sub:#8c7a6b; --line:#f0e4d4;
+  --main:#ec8d9c; --main-dk:#d86f80; --pink:#f4a7b3; --pink-lt:#fdecee; --lav-lt:#fbf1e6;
+  --yellow:#f8dc85; --green:#06c755; --bear:#a3734f;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:500;line-height:1.75;-webkit-text-size-adjust:100%;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(60% 40% at 0% 0%, rgba(244,167,179,.22), transparent 70%),
+    radial-gradient(55% 40% at 100% 8%, rgba(248,220,133,.25), transparent 70%),
+    radial-gradient(60% 40% at 100% 100%, rgba(186,220,200,.25), transparent 70%),
+    radial-gradient(60% 40% at 0% 95%, rgba(205,190,235,.22), transparent 70%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55  0 0 0 0 .45  0 0 0 0 .35  0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
+.card{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .4  0 0 0 0 .3  0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
+.hand{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400}
+.bear{display:block;margin:0 auto}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.bear .balloon{animation:floaty 3.2s ease-in-out infinite;transform-origin:center}
 .wrap{max-width:520px;margin:0 auto;padding:16px 16px 48px}
-.card{background:var(--card);border-radius:22px;padding:22px 18px;box-shadow:0 6px 24px rgba(167,127,214,.12);margin-bottom:16px}
-h1{font-size:26px;line-height:1.4;margin:6px 0 10px;font-weight:900;text-align:center}
-h1 .em{color:var(--pink)}
+.card{background:var(--card);border-radius:22px;padding:22px 18px;box-shadow:0 4px 18px rgba(163,115,79,.08);margin-bottom:16px;border:1px solid var(--line)}
+h1{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400;font-size:27px;line-height:1.55;margin:6px 0 12px;text-align:center;color:var(--main-dk)}
+h1 .em{color:var(--main-dk)}
 h2{font-size:19px;line-height:1.5;margin:0 0 6px;font-weight:900}
 p{margin:0 0 10px}
 .lead{text-align:center;color:var(--sub);font-size:15px}
@@ -31,12 +44,12 @@ p{margin:0 0 10px}
 .points li{background:var(--lav-lt);border-radius:14px;padding:10px 12px;margin-bottom:8px;font-size:15px}
 .btn{display:block;width:100%;border:0;border-radius:999px;padding:15px 18px;font:inherit;font-weight:900;font-size:17px;cursor:pointer;text-align:center;text-decoration:none;transition:transform .08s, opacity .2s}
 .btn:active{transform:scale(.98)}
-.btn-main{background:linear-gradient(90deg,var(--main),var(--pink));color:#fff;box-shadow:0 6px 16px rgba(242,155,191,.35)}
+.btn-main{background:var(--main);color:#fff;box-shadow:0 5px 14px rgba(236,141,156,.32)}
 .btn-line{background:var(--green);color:#fff}
 .btn-ghost{background:transparent;color:var(--sub);font-size:14px;font-weight:700;padding:10px}
 .btn[disabled]{opacity:.4;cursor:not-allowed}
 .progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:2px 0 6px}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--main),var(--pink));width:0;transition:width .3s}
+.progress i{display:block;height:100%;background:var(--main);width:0;transition:width .3s}
 .step-label{font-size:13px;color:var(--sub);text-align:right;margin-bottom:10px}
 .q-help{font-size:14px;color:var(--sub);margin-bottom:12px}
 label.opt{display:flex;align-items:center;gap:10px;border:2px solid var(--line);border-radius:14px;padding:11px 12px;margin-bottom:8px;cursor:pointer;font-size:15px;background:#fff;transition:border-color .15s, background .15s}
@@ -49,15 +62,14 @@ input[type=date]:focus,textarea:focus{outline:none;border-color:var(--main)}
 .scale{display:flex;gap:8px;margin:6px 0 4px}
 .scale label{flex:1;text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px 0;cursor:pointer;font-weight:900;font-size:18px;background:#fff}
 .scale input{position:absolute;opacity:0;pointer-events:none}
-.scale label:has(input:checked){background:linear-gradient(135deg,var(--main),var(--pink));color:#fff;border-color:transparent}
+.scale label:has(input:checked){background:var(--main);color:#fff;border-color:transparent}
 .scale-cap{display:flex;justify-content:space-between;font-size:12px;color:var(--sub)}
 .nav{display:flex;gap:10px;margin-top:16px}
 .nav .btn-ghost{width:auto;flex:none}
 .err{color:#d0588c;font-size:14px;min-height:1.5em;margin-top:6px}
 .small{font-size:12.5px;color:var(--sub);line-height:1.7}
-.result-type{background:linear-gradient(135deg,var(--lav-lt),var(--pink-lt));border-radius:20px;padding:20px 16px;text-align:center;margin-bottom:14px}
-.result-type .icon{font-size:52px;line-height:1.2}
-.result-type .name{font-size:24px;font-weight:900;margin:4px 0}
+.result-type{background:var(--lav-lt);border-radius:20px;padding:16px 16px 20px;text-align:center;margin-bottom:14px}
+.result-type .name{font-family:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;font-weight:400;font-size:24px;color:var(--main-dk);margin:2px 0 4px}
 .result-type .catch{font-size:15px;color:var(--sub)}
 .box{background:var(--lav-lt);border-radius:16px;padding:14px;margin:10px 0}
 .box.pink{background:var(--pink-lt)}
@@ -80,11 +92,11 @@ footer{text-align:center;font-size:12px;color:var(--sub);margin-top:20px}
   <section id="start">
     <div class="card">
       <div class="center"><span class="badge">無料・約1分</span></div>
-      <div class="hero-ill">🧸💭</div>
+      <div id="heroBear" style="margin:6px 0 2px"></div>
       <h1>うちの子の<br><span class="em">「困った」タイプ</span>診断</h1>
       <p class="lead">年齢と困りごとから、<br>お子さんのタイプと、今日から使えるヒントがわかります。</p>
       <ul class="points">
-        <li>💜 毎日の「なんで？」の、理由のヒントが見つかる</li>
+        <li>🎈 毎日の「なんで？」の、理由のヒントが見つかる</li>
         <li>💬 タイプ別「今日から使える声かけ3つ」カードをLINEでお届け</li>
         <li>🌸 がんばっているお母さんへのメッセージつき</li>
       </ul>
@@ -108,8 +120,8 @@ footer{text-align:center;font-size:12px;color:var(--sub);margin-top:20px}
   <!-- ===== 送信中 ===== -->
   <section id="loading" class="hidden">
     <div class="card center">
-      <div class="hero-ill">🧸</div>
-      <h2>タイプを読み解いています…</h2>
+      <div id="loadBear"></div>
+      <h2 class="hand" style="color:var(--main-dk)">タイプを読み解いています…</h2>
       <p class="small">少しだけお待ちください</p>
     </div>
   </section>
@@ -184,6 +196,58 @@ const TYPES = {
     feature:"書いてくれた困りごとは、5つのタイプにぴったり当てはまらない、その子ならではのものかもしれません。だからこそ、型に当てはめずに見ていきたいと思っています。書いてくれた内容に合わせて、LINEで個別にヒントをお届けしますね。",
     teaser:["書いてくれた困りごとに合わせたヒント","今日から試せる、小さな声かけ","お母さんの心が少し軽くなるひとこと"]}
 };
+
+/* =========================================================
+   くまのイラスト（風船の色はタイプごとに変わる）
+   ========================================================= */
+const BALLOON = {kirikae:"#a8d8c0", ukkari:"#f6cf5f", bakuhatsu:"#f19aa7", switch:"#c7b6e8", asa:"#9fc8ea", other:"#f6b9a0"};
+let bearN = 0;
+function bearSVG(balloon="#f6cf5f", w=150, mark=""){
+  // 絵本風：手描きのゆらぎ線＋クレヨンのざらざら
+  const id = "pb" + (++bearN);
+  const B="#a8774f", L="#efd6b3", D="#4a3226", O="#6e4a30";
+  const s = `stroke="${O}" stroke-width="2.2" stroke-linejoin="round"`;
+  return `<svg class="bear" width="${w}" viewBox="0 0 160 222" role="img" aria-label="風船を持ったくま">
+    <defs>
+      <filter id="${id}" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="wob"/>
+        <feDisplacementMap in="SourceGraphic" in2="wob" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="9" result="n"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 .22  0 0 0 0 .14  0 0 0 0 .08  -1.4 0 0 0 .78" result="grain"/>
+        <feComposite in="grain" in2="d" operator="in" result="g2"/>
+        <feMerge><feMergeNode in="d"/><feMergeNode in="g2"/></feMerge>
+      </filter>
+    </defs>
+    <g filter="url(#${id})">
+      <path d="M112 72 C104 95, 117 112, 103 140" fill="none" stroke="#9c8670" stroke-width="1.8"/>
+      <g class="balloon">
+        <ellipse cx="114" cy="42" rx="23" ry="28" fill="${balloon}" stroke="${O}" stroke-width="1.6" stroke-opacity=".55"/>
+        <path d="M104 26 q-5 9 -2 18" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+        <path d="M110 69 l4 5 l4 -5 z" fill="${balloon}" stroke="${O}" stroke-width="1.2" stroke-opacity=".55"/>
+        ${mark?`<text x="114" y="50" text-anchor="middle" font-size="17">${mark}</text>`:""}
+      </g>
+      <ellipse cx="66" cy="211" rx="36" ry="5" fill="#8a6a4a" opacity=".13"/>
+      <ellipse cx="51" cy="198" rx="13" ry="9" fill="${B}" ${s}/>
+      <ellipse cx="81" cy="198" rx="13" ry="9" fill="${B}" ${s}/>
+      <ellipse cx="66" cy="160" rx="31" ry="37" fill="${B}" ${s}/>
+      <ellipse cx="66" cy="167" rx="19" ry="23" fill="${L}"/>
+      <path d="M54 150 q3 -3 6 0 M70 182 q3 -3 6 0 M60 170 q3 -3 6 0" fill="none" stroke="${O}" stroke-width="1.2" opacity=".35"/>
+      <ellipse cx="37" cy="158" rx="9" ry="19" fill="${B}" ${s} transform="rotate(20 37 158)"/>
+      <ellipse cx="96" cy="143" rx="9" ry="19" fill="${B}" ${s} transform="rotate(-40 96 143)"/>
+      <circle cx="40" cy="68" r="13" fill="${B}" ${s}/><circle cx="40" cy="68" r="6.5" fill="${L}"/>
+      <circle cx="92" cy="68" r="13" fill="${B}" ${s}/><circle cx="92" cy="68" r="6.5" fill="${L}"/>
+      <circle cx="66" cy="96" r="35" fill="${B}" ${s}/>
+      <path d="M46 78 q4 -4 8 -1 M78 77 q4 -3 8 1 M58 70 q4 -3 8 0" fill="none" stroke="${O}" stroke-width="1.2" opacity=".35"/>
+      <ellipse cx="66" cy="108" rx="15" ry="11" fill="${L}"/>
+      <ellipse cx="66" cy="102" rx="5.5" ry="4" fill="${D}"/>
+      <path d="M61 110 q5 5 10 0" fill="none" stroke="${D}" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="53" cy="91" r="3.3" fill="${D}"/><circle cx="79" cy="91" r="3.3" fill="${D}"/>
+      <circle cx="54.2" cy="89.8" r="1" fill="#fff"/><circle cx="80.2" cy="89.8" r="1" fill="#fff"/>
+      <ellipse cx="45" cy="104" rx="6.5" ry="4" fill="#ee8f9c" opacity=".5"/>
+      <ellipse cx="87" cy="104" rx="6.5" ry="4" fill="#ee8f9c" opacity=".5"/>
+    </g>
+  </svg>`;
+}
 
 const MOM_CHECKS = [
   "叱ったあとに、自己嫌悪になる",
@@ -338,6 +402,8 @@ $("btnNext").onclick = ()=>{
   else finish();
 };
 $("footer").textContent = `© ${SETTINGS.NAME}｜${SETTINGS.PROFILE}`;
+$("heroBear").innerHTML = bearSVG("#f6cf5f", 150);
+$("loadBear").innerHTML = bearSVG("#f19aa7", 120);
 
 /* =========================================================
    判定
@@ -399,7 +465,7 @@ function renderResult(type, code, grade){
   <div class="card">
     <div class="center"><span class="badge">${grade.label}のお子さんのタイプ</span></div>
     <div class="result-type" style="margin-top:12px">
-      <div class="icon">${T.icon}</div>
+      ${bearSVG(BALLOON[type], 130, T.icon)}
       <div class="name">${T.name}</div>
       <div class="catch">${T.catch}</div>
     </div>
